@@ -2,7 +2,7 @@
 layout: page
 ---
 
-Hey there! I am Kushal Arora. I am currently a software engineer at Amazon. Here I am working with Alexa's Machine Learning Platform(MLP) team supporting model building and release for ASR and NLU. I also contribute on regular basis to Alexa's Algorithm's team helping develop our in house deep learning library.
+Hey there! I am Kushal Arora. I am currently a software engineer at Amazon. Here I am working with Alexa's Machine Learning Platform(MLP) team supporting model building and release for ASR and NLU for Alexa. I also contribute on regular basis to Alexa's Algorithm's team helping them develop our in house deep learning library.
 
 Before joining Amazon, I was a MS(thesis) student at University of Florida's Computer Science department, working with Prof. [Anand Rangarajan](http://cise.ufl.edu~anand) on Compositional Language Modeling. I have also spent a semester in Dr. [Daisy Wang](http://cise.ufl.edu/~daisyw)'s lab working on the problem of Ontology Alginment.
 
