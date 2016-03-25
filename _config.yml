@@ -29,8 +29,8 @@ github:
 # Pagelist
 pages_list:
     Projects: '/projects'
-    Blog: '/blog'
-    Notes: '/notes'
+#    Blog: '/blog'
+#    Notes: '/notes'
     CV: '/cv'
 
 # Gems
