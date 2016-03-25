@@ -2,28 +2,14 @@
 layout: page
 ---
 
-<p class="message">
-  Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
-</p>
+Hey there! I am Kushal Arora. I am currently a software engineer at Amazon. Here I am working with Alexa's Machine Learning Platform(MLP) team supporting model building and release for ASR and NLU. I also contribute on regular basis to Alexa's Algorithm's team helping develop our in house deep learning library.
 
-In the novel, *The Strange Case of Dr. Jekyll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
+Before joining Amazon, I was a MS(thesis) student at University of Florida's Computer Science department, working with Prof. [Anand Rangarajan](http://cise.ufl.edu~anand) on Compositional Language Modeling. I have also spent a semester in Dr. [Daisy Wang](http://cise.ufl.edu/~daisyw)'s lab working on the problem of Ontology Alginment.
 
-There are currently two themes built on Poole:
+My research interest primarily lie in the area of learning unsupervised language representation and composition. I strongly believe a roboust representation can then be used to better current state of the art classifiers for many NLU tasks like sentiment analysis, paraphrase detection, sentence completion, parsing to name a few. The assumption here is that most of the heavy lifting of building roboust features would already be taken care of by this representations and composition functions and a simple classification layer on top of this should be able to learn the weights better. I am also interested in problem of defining what a roboust representation means and metrics to evaluate these compositional frameworks and embeddings.
 
-* [Hyde](http://hyde.getpoole.com)
-* [Lanyon](http://lanyon.getpoole.com)
+As this problem needs strong understanding of deep network training, I am also interested in optimization and regularization techniques for deep networks. I also believe the best way to look at this problem from manifold theory, hence, I am also interested in building on basics of manifold learning studied in Advanced Machine Learning class at University of Florida.
 
-Learn more and contribute on [GitHub](https://github.com/poole).
-
-## Setup
-
-Some fun facts about the setup of this project include:
-
-* Built for [Jekyll](http://jekyllrb.com)
-* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
-* Coded with [Sublime Text 2](http://sublimetext.com), an amazing code editor
-* Designed and developed while listening to music like [Blood Bros Trilogy](https://soundcloud.com/maddecent/sets/blood-bros-series)
-
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
+I am looking for research positions starting Summer/Fall 2016 and would appreciate any lead in that regards.
 
 Thanks for reading!

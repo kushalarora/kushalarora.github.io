@@ -28,8 +28,8 @@ github:
 
 # Pagelist
 pages_list:
-    Blog: '/blog'
     Projects: '/projects'
+    Blog: '/blog'
     Notes: '/notes'
     CV: '/cv'
 
@@ -37,4 +37,3 @@ pages_list:
 gems:
   - jekyll-paginate
   - jekyll-gist
-markdown: redcarpet
