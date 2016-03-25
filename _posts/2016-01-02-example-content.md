@@ -1,5 +1,6 @@
 ---
 layout: post
+summary: Summary
 title: Example content
 ---
 
