@@ -2,9 +2,8 @@
 permalink:           pretty
 
 # Setup
-title:               Poole
-tagline:             The Jekyll Butler
-url:                 http://getpoole.com
+title:               Kushal Arora
+url:                 http://kushalarora.github.io
 paginate:            5
 baseurl:             ""
 paginate_path: '/blog/page:num'
@@ -18,9 +17,9 @@ sass:
 
 # About/contact
 author:
-  name:              Mark Otto
-  url:               https://twitter.com/mdo
-  email:             markdotto@gmail.com
+  name:              Kushal Arora
+  url:               https://kushalarora.github.io
+  email:             kushal18@gmail.com
 
 # Custom vars
 version:             2.0.0
@@ -31,6 +30,7 @@ github:
 pages_list:
     Blog: '/blog'
     Projects: '/projects'
+    Notes: '/notes'
     CV: '/cv'
 
 # Gems
