@@ -37,3 +37,4 @@ pages_list:
 gems:
   - jekyll-paginate
   - jekyll-gist
+markdown: redcarpet
