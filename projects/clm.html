@@ -1,0 +1,1838 @@
+---
+layout: page
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2016-03-27"/>
+<link rel="stylesheet" href="/Users/arorak/kushalarora.github.io/_site/styles.css" type="text/css" media="all"/>
+<title>A Compositional Approach to Language Modeling</title>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<div id="globalWrapper">
+<script type="math/tex">
+\newcommand{\lyxlock}{}
+</script>
+<noscript>
+<div class="warning">
+Warning: <a href="http://www.mathjax.org/">MathJax</a> requires JavaScript to correctly process the mathematics on this page. Please enable JavaScript on your browser.
+</div><hr/>
+</noscript>
+<h1 class="title">
+A Compositional Approach to Language Modeling
+</h1>
+<h2 class="author">
+Kushal Arora<br/>
+Department of CISE, University of Florida<br/>
+karora@cise.ufl.edu
+</h2>
+<h2 class="author">
+Anand Rangarajan,<br/>
+Department of CISE, University of Florida<br/>
+anand@cise.ufl.edu
+</h2>
+<h2 class="author">
+
+</h2>
+<div class="abstract">
+<p class="abstract-message">
+Abstract
+</p>
+Traditional language models treat language as a finite state automaton on a probability space over words. This is a very strong assumption when modeling something inherently complex such as language. In this paper, we challenge this by showing how the linear chain assumption inherent in previous work can be translated into a sequential composition tree. We then propose a new model that marginalizes over all possible composition trees thereby removing any underlying structural assumptions. As the partition function of this new model is intractable, we also propose a new sentence level evaluation metric to evaluate our model. Given this new evaluation metric, we report more than 100% improvement across distortion levels over current state of the art recurrent neural network based language models.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-1">1</a> Introduction<a class="Label" name="sec:Introduction"> </a>
+</h1>
+<div class="Unindented">
+The objective of language modeling is to build a probability distribution over sequences of words. The traditional approaches, inspired by Shannon’s game, has molded this problem into merely predicting the next word given the context. This leads to a linear chain model on words. In its simplest formulation, these conditional probabilities are estimated using frequency tables of word <span class="MathJax_Preview"><script type="math/tex">
+w_{i}
+</script>
+</span> following the sequence <span class="MathJax_Preview"><script type="math/tex">
+w_{i-1}^{1}
+</script>
+</span>. There are two big issues with this formulation. First, the number of parameters rises exponentially with the size of the context. Second, it is impossible to see all such combinations in the training set, however large it may be. In traditional models, the first problem, famously called the <i>curse of dimensionality,</i> is tackled by limiting the history to the previous <span class="MathJax_Preview"><script type="math/tex">
+n-1
+</script>
+</span> words leading to an n-gram model. The second problem, one of sparsity, is tackled by redistributing the probability mass over seen and unseen examples usually by applying some kind of smoothing or interpolation techniques. A good overview of various smoothing techniques and their relative performance on language modeling tasks can be found in <span class="bibcites">[<a class="bibliocite" name="cite-8" href="#biblio-8"><span class="bib-index">8</span></a>]</span>.
+</div>
+<div class="Indented">
+Smoothened n-gram language models fail on two counts: their inability to generalize and their failure to capture the longer context dependencies. The first one is due to the discrete nature of the problem and the lack of any kind of implicit measure of relatedness or context based clustering among words and phrases. The second problem---the failure to capture longer context dependencies---is due to the n-order Markov restriction applied to deal with the curse of dimensionality. There have been numerous attempts to address both the issues in the traditional n-gram framework. Class based models <span class="bibcites">[<a class="bibliocite" name="cite-3" href="#biblio-3"><span class="bib-index">3</span></a>, <a class="bibliocite" name="cite-1" href="#biblio-1"><span class="bib-index">1</span></a>, <a class="bibliocite" name="cite-17" href="#biblio-17"><span class="bib-index">17</span></a>]</span> try to solve the generalization issue by deterministically or probabilistically mapping words to one or multiple classes based on manually designed or probabilistic criteria. The issue of longer context dependencies has been addressed using various approximations such as cache models <span class="bibcites">[<a class="bibliocite" name="cite-9" href="#biblio-9"><span class="bib-index">9</span></a>]</span>, trigger models <span class="bibcites">[<a class="bibliocite" name="cite-11" href="#biblio-11"><span class="bib-index">11</span></a>]</span> and structured language models <span class="bibcites">[<a class="bibliocite" name="cite-4" href="#biblio-4"><span class="bib-index">4</span></a>, <a class="bibliocite" name="cite-5" href="#biblio-5"><span class="bib-index">5</span></a>, <a class="bibliocite" name="cite-6" href="#biblio-6"><span class="bib-index">6</span></a>]</span>.
+</div>
+<div class="Indented">
+Neural network based language models take an entirely different approach to solving the generalization problem. Instead of trying to solve the difficult task of modeling the probability distribution over discrete sets of words, they try to embed these words into a continuous space and then build a smooth probability distribution over it. Feedforward neural network based models <span class="bibcites">[<a class="bibliocite" name="cite-2" href="#biblio-2"><span class="bib-index">2</span></a>, <a class="bibliocite" name="cite-15" href="#biblio-15"><span class="bib-index">15</span></a>, <a class="bibliocite" name="cite-16" href="#biblio-16"><span class="bib-index">16</span></a>]</span> embed the concatenated n-gram history in this latent space and then use a <i>softmax</i> layer over these embeddings to predict the next word. This solves the generalization issue by building a smoothly varying probability distribution but is still unable to capture longer dependencies beyond the Markovian boundary. Recurrent neural network based models <span class="bibcites">[<a class="bibliocite" name="cite-13" href="#biblio-13"><span class="bib-index">13</span></a>, <a class="bibliocite" name="cite-12" href="#biblio-12"><span class="bib-index">12</span></a>]</span> attempt to address this by recursively embedding history in the latent space, predicting the next word based on it and then updating the history with the word. Theoretically, this means that the entire history can now be used to predict the next word, hence, the network has the ability to capture longer context dependencies.
+</div>
+<div class="Indented">
+All the models discussed above solve the two aforementioned issues to varying degrees of success but none of them actually challenge the underlying linear chain model assumption. Language is recursive in nature, and this along with the underlying compositional structure should play an important role in modeling language. The computational linguistics community has been working for years on formalizing the underlying structure of language in the form of grammars. A step in the right direction would be to look beyond simple frequency estimation-based methods and to use these compositional frameworks to assign probability to words and sentences.
+</div>
+<div class="Indented">
+We start by looking at n-gram models and show how they have an implicit sequential tree assumption. This brings us to the following questions: Is a sequential tree the best compositional structure to model language? If not, then, what is the best compositional structure? Further, do we even need to find one such structure, or can we marginalize over all structures to remove any underlying structural assumptions?
+</div>
+<div class="Indented">
+In this paper we take the latter approach. We model the probability of a sentence as <b><i>the marginalized joint probability of words and composition trees</i></b> (over all possible rooted trees). We use a probabilistic context free grammar (PCFG) to generate these trees and build a probability distribution on them. As generalization is still an issue, we use distributed representations of words and phrases and build a probability distribution on them in the latent space. A similar approach but in a different setting has been attempted in <span class="bibcites">[<a class="bibliocite" name="cite-18" href="#biblio-18"><span class="bib-index">18</span></a>]</span> for language parsing. The major difference between our approach and theirs is the way we handle the breaking of PCFG’s independence assumption due to the distributed representation. Instead of approximating the marginalization using the n-best trees as in <span class="bibcites">[<a class="bibliocite" name="cite-18" href="#biblio-18"><span class="bib-index">18</span></a>]</span>, we restore this independence assumption by averaging over phrasal representations leading to a single phrase representation. This single representation for phrases in turn allows us to use an efficient Inside-Outside <span class="bibcites">[<a class="bibliocite" name="cite-10" href="#biblio-10"><span class="bib-index">10</span></a>]</span> algorithm for exact marginalization and training.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-2">2</a> Compositional View of an N-gram model<a class="Label" name="sec:Compositional-n-gram"> </a>
+</h1>
+<div class="Unindented">
+<a class="Label" name="gen_inst"> </a>
+</div>
+<div class="Indented">
+Let us consider a sequence of words <span class="MathJax_Preview"><script type="math/tex">
+w_{1}^{n}
+</script>
+</span>. A linear chain model would factorize the probability of this sentence <span class="MathJax_Preview"><script type="math/tex">
+p(w_{1}^{n})
+</script>
+</span> as a product of conditional probabilities <span class="MathJax_Preview"><script type="math/tex">
+p(w_{i}|h_{i})
+</script>
+</span> leading to the following factorization:
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(w_{1}^{n})=\prod_{i=1}^{n}p(w_{i}|h_{i}).
+\end{equation}
+</script>
+
+</span>
+
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="fig:seq-tree-n-gram"> </a><div class="figure">
+<div class="center">
+<img class="embedded" src="images/seq_tree_linear_chain.png" alt="figure images/seq_tree_linear_chain.png"/>
+
+</div>
+<div class="caption">
+Figure 1 Sequential tree of a linear chain model
+</div>
+
+</div>
+
+</div>
+All the models discussed in previous section differ in how the history or context <span class="MathJax_Preview"><script type="math/tex">
+h_{i}
+</script>
+</span> is represented. For a linear chain model with no assumptions, the history <span class="MathJax_Preview"><script type="math/tex">
+h_{i}
+</script>
+</span> would be the previous <span class="MathJax_Preview"><script type="math/tex">
+i-1
+</script>
+</span> words, so the factorization is<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(w_{1}^{n})=\prod_{i=1}^{n}p(w_{i}|w_{1}^{i-1}).\label{eq:n-gram-pure}
+\end{equation}
+</script>
+
+</span>
+
+</div>
+<div class="Indented">
+If we move the probability space to sequences of words, the same factorization in equation (<a class="Reference" href="#eq:n-gram-pure">↓</a>) can be written as:<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(w_{1}^{n},\ldots,w_{1}^{i},\ldots,w_{1}^{2},w_{n},\ldots,w_{i},\ldots,w_{1})=\prod_{i=1}^{n}p(w_{1}^{i}|w_{1}^{i-1},w_{i})p(w_{i}).\label{eq:seq-factorization}
+\end{equation}
+</script>
+
+</span>
+Figure <a class="Reference" href="#fig:seq-tree-n-gram">1↑</a> shows the sequential compositional structure endowed by the factorization in equation (<a class="Reference" href="#eq:seq-factorization">↓</a>). As the particular factorization is a byproduct of the underlying compositional structure, we can re-write (<a class="Reference" href="#eq:seq-factorization">↓</a>) as a probability density conditioned on this sequential tree <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span> as follows:
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(w_{1}^{n}|t)=\prod_{i=1}^{n}p(w_{1}^{i}|w_{1}^{i-1},w_{i})p(w_{i}).
+\end{equation}
+</script>
+
+</span>
+Having shown the sequential compositional structure assumption of the n-gram model, in the next section we try to remove this conditional density assumption by modeling the joint probability of the sentences and the compositional trees.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-3">3</a> The Compositional Language Model<a class="Label" name="sec:Compostional-Language-Model"> </a>
+</h1>
+<div class="Unindented">
+In this section, we build the framework to carry out the marginalization over all possible trees. Let <span class="MathJax_Preview"><script type="math/tex">
+W
+</script>
+</span> be the sentence and <span class="MathJax_Preview"><script type="math/tex">
+\mathcal{T}(W)
+</script>
+</span> be the set of all compositional trees for sentence <span class="MathJax_Preview"><script type="math/tex">
+W
+</script>
+</span>. The probability of the sentence <span class="MathJax_Preview"><script type="math/tex">
+p(W)
+</script>
+</span> can then be written in terms of the joint probability over the sentence and compositional structure as<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(W)=\sum_{t\in\mathcal{T}(W)}p(W|t)p(t)\label{eq:marginal_1}
+\end{equation}
+</script>
+
+</span>
+
+</div>
+<div class="Indented">
+Examining (<a class="Reference" href="#eq:marginal_1">↓</a>), we see that we have two problems to solve: i) enumerating and building probability distributions over trees <span class="MathJax_Preview"><script type="math/tex">
+p(t)
+</script>
+</span> and ii) modeling the probability of sentences conditioned on compositional trees <span class="MathJax_Preview"><script type="math/tex">
+p(W|t)
+</script>
+</span>.
+</div>
+<div class="Indented">
+Probabilistic Context Free Grammars (PCFGs) fit the first use case perfectly. We define a PCFG as a quintuple:
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+(G,\theta)=(N,T,R,S,P)
+\end{equation}
+</script>
+
+</span>
+where <span class="MathJax_Preview"><script type="math/tex">
+N
+</script>
+</span> is the set of non-terminal symbols, <span class="MathJax_Preview"><script type="math/tex">
+T
+</script>
+</span> is the set of terminal symbols, <span class="MathJax_Preview"><script type="math/tex">
+R
+</script>
+</span> is the finite set of production rules, <span class="MathJax_Preview"><script type="math/tex">
+S
+</script>
+</span> is the special start symbol which is always at the root of a parse tree and <span class="MathJax_Preview"><script type="math/tex">
+P
+</script>
+</span> is the set of probabilities on production rules.<span class="FootOuter"><span class="SupFootMarker"> [A] </span><span class="HoverFoot"><span class="SupFootMarker"> [A] </span>We restrict our grammar to Chomsky Normal Form (CNF) to simplify the derivation and explanation. </span></span> <span class="MathJax_Preview"><script type="math/tex">
+\theta
+</script>
+</span> is a real valued vector of length <span class="MathJax_Preview"><script type="math/tex">
+|R|
+</script>
+</span> with the <span class="MathJax_Preview"><script type="math/tex">
+r
+</script>
+</span>th index mapping to rule <span class="MathJax_Preview"><script type="math/tex">
+r\in R
+</script>
+</span> and value <span class="MathJax_Preview"><script type="math/tex">
+\theta_{r}\in P
+</script>
+</span>.
+</div>
+<div class="Indented">
+Using this definition, we can write the probability of any tree <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span>, <span class="MathJax_Preview"><script type="math/tex">
+p(t)
+</script>
+</span>, as the product of the production rules used to derive the sentence <span class="MathJax_Preview"><script type="math/tex">
+W
+</script>
+</span> from <span class="MathJax_Preview"><script type="math/tex">
+S
+</script>
+</span> i.e.
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(t)=\prod_{r\in\tilde{R_{t}}(W)}\theta_{r}\label{eq:pcfg_t_def}
+\end{equation}
+</script>
+
+</span>
+where <span class="MathJax_Preview"><script type="math/tex">
+\tilde{R_{t}}(W)\in R
+</script>
+</span> is the set of production rules used to derive tree <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span>. As we are only interested in the compositional structure, <span class="MathJax_Preview"><script type="math/tex">
+\tilde{R}_{t}(W)
+</script>
+</span> only contains the binary rules for tree <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span>.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-3.1">3.1</a> The Composition Tree Representation<a class="Label" name="sub:Composition-Tree-Representation"> </a>
+</h2>
+<div class="Unindented">
+<div class="float">
+<a class="Label" name="fig:Parse-tree-fig"> </a><div class="figure">
+<div class="center">
+<img class="embedded" src="images/parse_tree_comp.png" alt="figure images/parse_tree_comp.png"/>
+<div class="caption">
+Figure 2 Parse tree for sentence <span class="MathJax_Preview"><script type="math/tex">
+W_{12345}
+</script>
+</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="Indented">
+We now focus our attention to the problem of modeling the sentence probability conditioned on the compositional tree i.e. <span class="MathJax_Preview"><script type="math/tex">
+p(W|t)
+</script>
+</span>. Let <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span> be the compositional tree shown in Figure <a class="Reference" href="#fig:Parse-tree-fig">2↑</a>. The factorization of <span class="MathJax_Preview"><script type="math/tex">
+w_{1}^{5}
+</script>
+</span> given <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span> is
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{flalign}
+p(w_{1}^{5}|t)= & p(w_{1}^{5}|w_{1}^{2},w_{3}^{5})p(w_{1}^{2}|w_{1},w_{2})\nonumber \\
+ & p(w_{3}^{5}|w_{3}w_{4}^{5})p(w_{4}^{5}|w_{4},w_{5})\nonumber \\
+ & p(w_{1})p(w_{2})p(w_{3})p(w_{4})p(w_{5}).\label{eq:parse-tree-eq}
+\end{flalign}
+</script>
+
+</span>
+We now seek to represent any arbitrary tree <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span> such that it can be factorized easily as we did in (<a class="Reference" href="#eq:parse-tree-eq">↓</a>). We do this by representing the compositional tree <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span> for a sentence <span class="MathJax_Preview"><script type="math/tex">
+W
+</script>
+</span> as a set of compositional rules and leaf nodes. Let us call this set <span class="MathJax_Preview"><script type="math/tex">
+R_{t}(W)
+</script>
+</span>. Using this abstraction, the rule set for the sentence <span class="MathJax_Preview"><script type="math/tex">
+w_{1}^{5}
+</script>
+</span> with compositional tree <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span>, <span class="MathJax_Preview"><script type="math/tex">
+R_{t}(w_{1}^{5})
+</script>
+</span> is
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{alignat}{1}
+R_{t}(w_{1}^{5})= & \big\{ w_{1}^{5}\leftarrow w_{1}^{2}\;w_{3}^{5},\nonumber \\
+ & w_{3}^{5}\leftarrow w_{3}\;w_{4}^{5},\nonumber \\
+ & w_{3}w_{4}^{5}\leftarrow w_{4\;}w_{5},w_{4}\nonumber \\
+ & w_{1}^{2}\leftarrow w_{1}\;w_{2},w_{1},w_{2}\big\}.\label{eq:rule-set}
+\end{alignat}
+</script>
+
+</span>
+We now rewrite the factorization in (<a class="Reference" href="#eq:parse-tree-eq">↓</a>) as
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(w_{1}^{5}|t)=\prod_{r\in R_{t}(w_{1}^{5})}p(r)
+\end{equation}
+</script>
+
+</span>
+where <span class="MathJax_Preview"><script type="math/tex">
+p(pa\leftarrow c_{1}\;c_{2})=p(pa|c_{1},c_{2})
+</script>
+</span>.
+</div>
+<div class="Indented">
+In more general terms, let <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span> be the compositional tree for a sentence <span class="MathJax_Preview"><script type="math/tex">
+W
+</script>
+</span>. We can write the conditional probability <span class="MathJax_Preview"><script type="math/tex">
+p(W|t)
+</script>
+</span> as
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(W|t)=\prod_{t\in R_{t}(W)}p(r).\label{eq:p(w|t)_general}
+\end{equation}
+</script>
+
+</span>
+
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-3.2">3.2</a> Computing the Sentence Probability<a class="Label" name="sub:Computing-Sentence-Probability"> </a>
+</h2>
+<div class="Unindented">
+Using the definition of <span class="MathJax_Preview"><script type="math/tex">
+p(t)
+</script>
+</span> from (<a class="Reference" href="#eq:pcfg_t_def">↓</a>) and the definition of <span class="MathJax_Preview"><script type="math/tex">
+p(W|t)
+</script>
+</span> from (<a class="Reference" href="#eq:p(w|t)_general">↓</a>), we rewrite the joint probability <span class="MathJax_Preview"><script type="math/tex">
+p(W,t)
+</script>
+</span> as<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(W,t)=\prod_{c\in R_{t}(W)}p(c)\prod_{r\in\tilde{R}_{t}(W)}\theta_{r}.\label{eq:p(W,t)_subs}
+\end{equation}
+</script>
+
+</span>
+Now, as the compositional tree <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span> is the same for both the production rule set <span class="MathJax_Preview"><script type="math/tex">
+\tilde{R_{t}}(W)
+</script>
+</span> and the compositional rule set <span class="MathJax_Preview"><script type="math/tex">
+R_{t}(W)
+</script>
+</span>, there is a one-to-one mapping between the binary rules in both the sets.
+</div>
+<div class="Indented">
+Adding corresponding POS tags to phrase <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span>, we can merge both these sets. Let <span class="MathJax_Preview"><script type="math/tex">
+R_{t}(W)
+</script>
+</span> be the merged set. The compositional rules in this new set can be re-written as <span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+A,w_{i}^{j}\rightarrow BC,w_{i}^{k}w_{k+1}^{j}.
+\end{equation}
+</script>
+
+</span>
+ Using this new rule set, we can rewrite <span class="MathJax_Preview"><script type="math/tex">
+p(W,t)
+</script>
+</span> from (<a class="Reference" href="#eq:p(W,t)_subs">↓</a>) as
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(W,t)=\prod_{r\in R_{t}(W)}\zeta_{r}\label{eq:p(W,t)_simpl_in_zeta}
+\end{equation}
+</script>
+
+</span>
+and <span class="MathJax_Preview"><script type="math/tex">
+p(W)
+</script>
+</span> from (<a class="Reference" href="#eq:marginal_1">↓</a>) as<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(W)=\sum_{t\in\mathcal{T}(W)}\prod_{r\in R_{t}(W)}\zeta_{r}\label{eq:p(W)_simpl}
+\end{equation}
+</script>
+
+</span>
+where <span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\zeta_{r}=\begin{cases}
+p(r)\theta_{r} & \mathrm{binary\,rules}\\
+p(r) & \mathrm{unary\,rules}
+\end{cases}.\label{eq:zeta_r_def}
+\end{equation}
+</script>
+
+</span>
+ The marginalization formulation in (<a class="Reference" href="#eq:p(W)_simpl">↓</a>) is similar to one solved by the Inside algorithm.
+</div>
+<div class="Indented">
+<b>Inside Algorithm:</b> Let <span class="MathJax_Preview"><script type="math/tex">
+\pi(A,w_{i}^{j})
+</script>
+</span> be the inside probability of <span class="MathJax_Preview"><script type="math/tex">
+A\in N
+</script>
+</span> spanning <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span>. Using this definition, we can rewrite <span class="MathJax_Preview"><script type="math/tex">
+p(W)
+</script>
+</span> in terms of the inside probability as <span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(W)=\pi(S,w_{1}^{n}).
+\end{equation}
+</script>
+
+</span>
+We can now recursively build <span class="MathJax_Preview"><script type="math/tex">
+\pi(S,w_{1}^{n})
+</script>
+</span> using a dynamic programming (DP) based Inside algorithm in the following way:
+</div>
+<div class="Indented">
+<b><i>Base Case</i>:</b> For the unary rule, the inside probability <span class="MathJax_Preview"><script type="math/tex">
+\pi(A,w_{i})
+</script>
+</span> is the same as the production rule probability <span class="MathJax_Preview"><script type="math/tex">
+\zeta_{A\rightarrow w_{i}}
+</script>
+</span>.
+</div>
+<div class="Subparagraph">
+
+</div>
+<div class="Unindented">
+<b><i>Recursive Definition</i>:</b> Let <span class="MathJax_Preview"><script type="math/tex">
+\pi(B,w_{i}^{k})
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+\pi(C,w_{k+1}^{j})
+</script>
+</span> be the inside probabilities spanning <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{k}
+</script>
+</span> rooted at <span class="MathJax_Preview"><script type="math/tex">
+B
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+w_{k+1}^{j}
+</script>
+</span> rooted at <span class="MathJax_Preview"><script type="math/tex">
+C
+</script>
+</span> respectively. Let <span class="MathJax_Preview"><script type="math/tex">
+r=A,w_{i}^{j}\rightarrow BC,w_{i}^{k}w_{k+1}^{j}
+</script>
+</span> be the rule which composes <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span> from <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{k}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+w_{k+1}^{j}
+</script>
+</span>, each one rooted at <span class="MathJax_Preview"><script type="math/tex">
+A
+</script>
+</span>, <span class="MathJax_Preview"><script type="math/tex">
+B
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+C
+</script>
+</span> respectively.
+</div>
+<div class="Indented">
+The inside probability of rule <span class="MathJax_Preview"><script type="math/tex">
+r
+</script>
+</span>, <span class="MathJax_Preview"><script type="math/tex">
+\pi(r)
+</script>
+</span>, can then be calculated as <span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\pi(r)=\zeta_{r}\pi(B,w_{i}^{k})\pi(C,w_{k+1}^{j}).
+\end{equation}
+</script>
+
+</span>
+Let <span class="MathJax_Preview"><script type="math/tex">
+r_{A,i,k,j}
+</script>
+</span> be the rule rooted at <span class="MathJax_Preview"><script type="math/tex">
+A
+</script>
+</span> spanning <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span> splitting at <span class="MathJax_Preview"><script type="math/tex">
+k
+</script>
+</span> such that \strikeout off\uuline off\uwave off<span class="MathJax_Preview"><script type="math/tex">
+i<k<j
+</script>
+</span><span class="default">\uuline default\uwave default. We can now calculate <span class="MathJax_Preview"><script type="math/tex">
+\pi(A,w_{i}^{j})
+</script>
+</span> by summing over all possible splits between <span class="MathJax_Preview"><script type="math/tex">
+i,j
+</script>
+</span>. <span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\pi(A,w_{i}^{j})=\sum_{i\le k<j}\sum_{r_{A,i,k,j}\in R}\pi(r_{A,i,k,j}).
+\end{equation}
+</script>
+
+</span>
+Examining equations (<a class="Reference" href="#eq:p(W)_simpl">↓</a>) and (<a class="Reference" href="#eq:zeta_r_def">↓</a>), we see that we have reduced the problem of modeling <span class="MathJax_Preview"><script type="math/tex">
+p(W)
+</script>
+</span> to modeling <span class="MathJax_Preview"><script type="math/tex">
+p(r),
+</script>
+</span> i.e. modeling the probability of compositional rules and leaf nodes. In the next section we carefully examine this problem. The approach we follow here is similar to the one taken in <span class="bibcites">[<a class="bibliocite" name="cite-19" href="#biblio-19"><span class="bib-index">19</span></a>]</span>. We embed the words in a vocabulary <span class="MathJax_Preview"><script type="math/tex">
+V
+</script>
+</span> in a latent space of dimension <span class="MathJax_Preview"><script type="math/tex">
+d
+</script>
+</span>, use a compositional function <span class="MathJax_Preview"><script type="math/tex">
+f
+</script>
+</span> to build phrases in this latent space and then build a probability distribution function <span class="MathJax_Preview"><script type="math/tex">
+p
+</script>
+</span> over the leaf nodes and compositional rules.</span>
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-3.3">3.3</a> Modeling the compositional probability <a class="Label" name="sub:Modeling-compo-probability"> </a>
+</h2>
+<div class="Unindented">
+The input to our model is an array of integers, each referring to the index of the word <span class="MathJax_Preview"><script type="math/tex">
+w
+</script>
+</span> in our vocabulary <span class="MathJax_Preview"><script type="math/tex">
+V
+</script>
+</span>. As a first step, we project each word into a continuous space using <span class="MathJax_Preview"><script type="math/tex">
+X
+</script>
+</span>, a <span class="MathJax_Preview"><script type="math/tex">
+d\times|V|
+</script>
+</span> embedding matrix, to obtain a continuous space vector <span class="MathJax_Preview"><script type="math/tex">
+x_{i}=X[i]
+</script>
+</span> corresponding to word <span class="MathJax_Preview"><script type="math/tex">
+w_{i}
+</script>
+</span>.
+</div>
+<div class="Indented">
+A non terminal parent node <span class="MathJax_Preview"><script type="math/tex">
+pa
+</script>
+</span> is composed of children nodes <span class="MathJax_Preview"><script type="math/tex">
+c_{1}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+c_{2}
+</script>
+</span> as<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+pa=f\left(W\left[\begin{array}{c}
+c_{1}\\
+c_{2}
+\end{array}\right]\right)\label{eq:comp}
+\end{equation}
+</script>
+
+</span>
+where <span class="MathJax_Preview"><script type="math/tex">
+W
+</script>
+</span> is a parameter with dimensions <span class="MathJax_Preview"><script type="math/tex">
+d\times2d
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+f
+</script>
+</span> is a non-linear function like <i>tanh</i> or a <i>sigmoid</i>. The probability distribution <span class="MathJax_Preview"><script type="math/tex">
+p(r)
+</script>
+</span> over rule <span class="MathJax_Preview"><script type="math/tex">
+r\in R_{t}(W)
+</script>
+</span> is modeled as a Gibbs distribution<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+p(r)=\frac{1}{Z}\exp\left\{ -E(r)\right\} \label{eq:p(r)_def}
+\end{equation}
+</script>
+
+</span>
+where <span class="MathJax_Preview"><script type="math/tex">
+E(r)
+</script>
+</span> is the energy for a compositional rule or a leaf node, and is modeled as
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+E(r)=g(u^{T}pa).\label{eq:energy_def}
+\end{equation}
+</script>
+
+</span>
+Here <span class="MathJax_Preview"><script type="math/tex">
+u
+</script>
+</span> is a scoring vector of dimension <span class="MathJax_Preview"><script type="math/tex">
+d\times1
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+g
+</script>
+</span> is the <i>identity</i> function. From (<a class="Reference" href="#eq:comp">↓</a>), (<a class="Reference" href="#eq:p(r)_def">↓</a>) and (<a class="Reference" href="#eq:energy_def">↓</a>), the parameters <span class="MathJax_Preview"><script type="math/tex">
+\alpha
+</script>
+</span> of <span class="MathJax_Preview"><script type="math/tex">
+p(r;\alpha)
+</script>
+</span> are <span class="MathJax_Preview"><script type="math/tex">
+(u,X,W)
+</script>
+</span>.
+</div>
+<div class="Indented">
+In the next section we derive an approach for parameter estimation. We achieve this by formulating training as a maximum likelihood estimation problem and estimating <span class="MathJax_Preview"><script type="math/tex">
+\alpha
+</script>
+</span> by maximizing the probability over the training set <span class="MathJax_Preview"><script type="math/tex">
+D
+</script>
+</span>.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-4">4</a> Training<a class="Label" name="sec:Training"> </a>
+</h1>
+<div class="Unindented">
+Let <span class="MathJax_Preview"><script type="math/tex">
+D
+</script>
+</span> be the set of training sentences. We can write the likelihood function as<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\mathcal{L}(\alpha;D)=\prod_{W_{d}\in D}p(W_{d};\alpha).
+\end{equation}
+</script>
+
+</span>
+This leads to the negative log-likelihood objective function
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\mathcal{E}_{\mathrm{ML}}(\alpha;D)=-\sum_{W_{d}\in D}\ln(p(W_{d};\alpha)).\label{eq:NLL}
+\end{equation}
+</script>
+
+</span>
+Substituting the definition of <span class="MathJax_Preview"><script type="math/tex">
+p(W;\alpha)
+</script>
+</span> from (<a class="Reference" href="#eq:marginal_1">↓</a>) and <span class="MathJax_Preview"><script type="math/tex">
+p(W,t;\alpha)
+</script>
+</span> from (<a class="Reference" href="#eq:p(W,t)_simpl_in_zeta">↓</a>) in (<a class="Reference" href="#eq:NLL">↓</a>), we get
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\mathcal{E}_{\mathrm{ML}}(\alpha;D)=-\sum_{W_{d}\in D}\ln\left(\sum_{t\in\mathcal{T}(W_{d})}\prod_{r\in R_{t}(W_{d})}\zeta_{r}(\alpha)\right)\label{eq:NLL_expanded}
+\end{equation}
+</script>
+
+</span>
+The formulation in equation (<a class="Reference" href="#eq:NLL_expanded">↓</a>) is very similar to the standard expectation-maximization (EM) formulation where the compositional tree <span class="MathJax_Preview"><script type="math/tex">
+t
+</script>
+</span> can be seen as a latent variable.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-4.1">4.1</a> Expectation Step
+</h2>
+<div class="Unindented">
+In the E-step, we compute the expected log-likelihood <span class="MathJax_Preview"><script type="math/tex">
+\mathcal{Q}(\alpha;\alpha^{old},W)
+</script>
+</span> as follows.
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\mathcal{Q}(\alpha;\alpha^{old},W)=-\sum_{t\in\mathcal{T}_{G}(W)}p(t|W;\alpha^{old})\ln(p(t,W;\alpha)).\label{eq:Q_a_a}
+\end{equation}
+</script>
+
+</span>
+Substituting <span class="MathJax_Preview"><script type="math/tex">
+p(t,W)
+</script>
+</span> from (<a class="Reference" href="#eq:p(W,t)_simpl_in_zeta">↓</a>) in (<a class="Reference" href="#eq:Q_a_a">↓</a>), we can re-write <span class="MathJax_Preview"><script type="math/tex">
+\mathcal{Q}(\alpha;W)
+</script>
+</span><span class="FootOuter"><span class="SupFootMarker"> [B] </span><span class="HoverFoot"><span class="SupFootMarker"> [B] </span>Henceforth we drop the term <span class="MathJax_Preview"><script type="math/tex">
+\alpha^{old}
+</script>
+</span> in all our equations for the sake of brevity.</span></span> as
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\mathcal{Q}(\alpha;W)=-\sum_{t\in\mathcal{T}_{G}(W)}p(t|W)\sum_{r\in R_{t}(W)}\ln(\zeta_{r}(\alpha)).\label{eq:Q_simplified}
+\end{equation}
+</script>
+
+</span>
+We can simplify the expression further by taking summations over the trees inside leading to the following expression<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\mathcal{Q}(\alpha;W)=-\frac{1}{p(W)}\sum_{r\in R}\mu(r)\ln(\zeta_{r}(\alpha))
+\end{equation}
+</script>
+
+</span>
+where <span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\mu(r)=\sum_{t\in\mathcal{T}_{G}(W):r\in R_{t}(W)}p(t,W).
+\end{equation}
+</script>
+
+</span>
+The term <span class="MathJax_Preview"><script type="math/tex">
+\mu(r)
+</script>
+</span> sums over all trees that contain rule <span class="MathJax_Preview"><script type="math/tex">
+r
+</script>
+</span> and can be calculated using the inside term <span class="MathJax_Preview"><script type="math/tex">
+\pi
+</script>
+</span> and a new term---the outside term <span class="MathJax_Preview"><script type="math/tex">
+\beta
+</script>
+</span>. Before computing <span class="MathJax_Preview"><script type="math/tex">
+\mu(r)
+</script>
+</span>, let’s examine how to compute this outside term <span class="MathJax_Preview"><script type="math/tex">
+\beta
+</script>
+</span>.
+</div>
+<div class="Indented">
+<b>Outside Algorithm:</b> The Inside term <span class="MathJax_Preview"><script type="math/tex">
+\pi(A,w_{i}^{j})
+</script>
+</span> is the probability of <span class="MathJax_Preview"><script type="math/tex">
+A\in N
+</script>
+</span> spanning sub-sequence <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span>. The Outside term <span class="MathJax_Preview"><script type="math/tex">
+\beta(A,w_{i}^{j})
+</script>
+</span> is just the opposite. <span class="MathJax_Preview"><script type="math/tex">
+\beta(A,w_{i}^{j})
+</script>
+</span> is the probability of expanding <span class="MathJax_Preview"><script type="math/tex">
+S
+</script>
+</span> to sentence <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{n}
+</script>
+</span> such that sub-sequence <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span> rooted at <span class="MathJax_Preview"><script type="math/tex">
+A
+</script>
+</span> is left unexpanded. Similar to the inside probability, the outside probability can be calculated recursively as follows:
+</div>
+<div class="Indented">
+<b><i>Base Case:</i></b> As the complete sentence is always rooted at <span class="MathJax_Preview"><script type="math/tex">
+S
+</script>
+</span>, <span class="MathJax_Preview"><script type="math/tex">
+\beta(S,w_{1}^{n})
+</script>
+</span> is always <span class="MathJax_Preview"><script type="math/tex">
+1
+</script>
+</span>. Moreover, as no other non-terminal <span class="MathJax_Preview"><script type="math/tex">
+A
+</script>
+</span> can be the root of the parse tree, <span class="MathJax_Preview"><script type="math/tex">
+\beta(A,w_{1}^{n})
+</script>
+</span>, <span class="MathJax_Preview"><script type="math/tex">
+A\neq S
+</script>
+</span> is zero.
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="fig:B_B_CA_k_i_j"> </a><div class="figure">
+<div class="center">
+<img class="embedded" src="images/outsideExplained_left.png" alt="figure images/outsideExplained_left.png"/>
+
+</div>
+<div class="caption">
+Figure 3 Calculating <span class="MathJax_Preview"><script type="math/tex">
+\beta(B,w_{k}^{j}\rightarrow CA,w_{k}^{i-1}w_{i}^{j})
+</script>
+</span>, the outside probability of non terminal <span class="MathJax_Preview"><script type="math/tex">
+A
+</script>
+</span> spanning <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span> such that rule <span class="MathJax_Preview"><script type="math/tex">
+B,w_{k}^{j}\rightarrow C\,A,w_{k}^{i-1}\,w_{i}^{j}
+</script>
+</span> was used expand the subsequence to its left
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="Indented">
+<b><i>Recursive Definition:</i></b> To compute <span class="MathJax_Preview"><script type="math/tex">
+\beta(A,w_{i}^{j})
+</script>
+</span> we need to sum up the probabilities both to the left and right of <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span>. Let’s consider summing over the left side span <span class="MathJax_Preview"><script type="math/tex">
+w_{1}^{i-1}
+</script>
+</span>. Figure <a class="Reference" href="#fig:B_B_CA_k_i_j">3↑</a> shows one of the intermediate steps. Let <span class="MathJax_Preview"><script type="math/tex">
+\beta(r_{L})
+</script>
+</span> be the probability of expanding subsequence <span class="MathJax_Preview"><script type="math/tex">
+w_{k}^{i-1}
+</script>
+</span> rooted at <span class="MathJax_Preview"><script type="math/tex">
+B
+</script>
+</span> using rule <span class="MathJax_Preview"><script type="math/tex">
+r_{L}=B,w_{k}^{j}\rightarrow C\,A,w_{k}^{i-1}\,w_{i}^{j}
+</script>
+</span> such that <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span> rooted at <span class="MathJax_Preview"><script type="math/tex">
+A
+</script>
+</span> is left unexpanded.
+</div>
+<div class="Indented">
+We can write <span class="MathJax_Preview"><script type="math/tex">
+\beta(r_{L})
+</script>
+</span> in terms of its parent’s outside probability <span class="MathJax_Preview"><script type="math/tex">
+\beta(B,w_{k}^{j})
+</script>
+</span>, left sibling’s inside probability <span class="MathJax_Preview"><script type="math/tex">
+\pi(C,w_{k}^{i-1})
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+\zeta_{r_{L}}
+</script>
+</span> as <span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\beta(r_{L})=\zeta_{r_{L}}\pi(C,w_{k}^{i-1})\beta(B,w_{k}^{j}).\label{eq:beta_left}
+\end{equation}
+</script>
+
+</span>
+Similarly, on the right hard side of <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span>, we can calculate <span class="MathJax_Preview"><script type="math/tex">
+\beta(r_{R})
+</script>
+</span> in terms of its parent’s outside probability <span class="MathJax_Preview"><script type="math/tex">
+\beta(B,w_{i}^{k})
+</script>
+</span>, rule <span class="MathJax_Preview"><script type="math/tex">
+r_{R}=B,w_{i}^{k}\rightarrow AC,w_{i}^{j}w_{j+1}^{k}
+</script>
+</span> probability <span class="MathJax_Preview"><script type="math/tex">
+\zeta_{r_{R}}
+</script>
+</span> and inside probability of right sibling <span class="MathJax_Preview"><script type="math/tex">
+\pi(C,w_{j+1}^{k}
+</script>
+</span>) as
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\beta(r_{R})=\zeta_{r_{R}}\pi(C,w_{j+1}^{k})\beta(B,w_{i}^{k}).\label{eq:beta_right}
+\end{equation}
+</script>
+
+</span>
+Let <span class="MathJax_Preview"><script type="math/tex">
+r_{A,k,i,j}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+r_{A,i,j,k}
+</script>
+</span> be the rules spanning <span class="MathJax_Preview"><script type="math/tex">
+w_{k}^{j}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{k}
+</script>
+</span> such that <span class="MathJax_Preview"><script type="math/tex">
+A
+</script>
+</span> spanning <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span> is its left and right child respectively. <span class="MathJax_Preview"><script type="math/tex">
+\beta(i,j,A)
+</script>
+</span> can then be calculated by summing <span class="MathJax_Preview"><script type="math/tex">
+r_{A,k,i,j}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+r_{A,i,j,k}
+</script>
+</span> over all such rules and splits, i.e.
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{multline}
+\beta(A,w_{i}^{j})=\sum_{k=1}^{i-1}\sum_{r_{A,k,i,j}\in R}\beta(r_{A,k,i,j})\\
++\sum_{k=j+1}^{n}\sum_{r_{A,i,j,k}\in R}\beta(r_{A,i,j,k}).
+\end{multline}
+</script>
+
+</span>
+Now, let’s look at the definition of <span class="MathJax_Preview"><script type="math/tex">
+\mu(r_{A,i,k,j})
+</script>
+</span>. Let <span class="MathJax_Preview"><script type="math/tex">
+r_{A,i,k,j}
+</script>
+</span> be a rule rooted at <span class="MathJax_Preview"><script type="math/tex">
+A
+</script>
+</span> and span <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span>. <span class="MathJax_Preview"><script type="math/tex">
+\pi(r_{A,i,k,j})
+</script>
+</span> contains probabilities of all the trees that uses production rule <span class="MathJax_Preview"><script type="math/tex">
+r_{A,i,k,j}
+</script>
+</span> in their derivation. <span class="MathJax_Preview"><script type="math/tex">
+\beta(A,w_{i}^{j})
+</script>
+</span> would contain the probability of everything except for <span class="MathJax_Preview"><script type="math/tex">
+A
+</script>
+</span> spanning <span class="MathJax_Preview"><script type="math/tex">
+w_{i}^{j}
+</script>
+</span>. Hence, their product contains the probability of all parse trees that have rule <span class="MathJax_Preview"><script type="math/tex">
+r_{A,i,j}
+</script>
+</span> in them, i.e. <span class="MathJax_Preview"><script type="math/tex">
+\mu(r_{A,i,j})
+</script>
+</span>.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-4.2">4.2</a> Minimization Step
+</h2>
+<div class="Unindented">
+In the M step, the objective is to minimize <span class="MathJax_Preview"><script type="math/tex">
+\mathcal{Q}(\alpha;\alpha^{old})
+</script>
+</span> in order to estimate <span class="MathJax_Preview"><script type="math/tex">
+\alpha^{\ast}
+</script>
+</span> such that<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{multline}
+\alpha^{\star}=\arg\min_{\alpha}-\frac{\sum_{r\in R}\ln(\zeta_{r}(\alpha))\mu(r)}{P(W)}.
+\end{multline}
+</script>
+
+</span>
+Substituting the definition of <span class="MathJax_Preview"><script type="math/tex">
+\zeta_{r}(\alpha)
+</script>
+</span> and the value of <span class="MathJax_Preview"><script type="math/tex">
+p(r;\alpha)
+</script>
+</span> from equation (<a class="Reference" href="#eq:p(r)_def">↓</a>) and differentiating <span class="MathJax_Preview"><script type="math/tex">
+\mathbf{\mathcal{Q}(\alpha;\alpha^{old})}
+</script>
+</span> w.r.t. to <span class="MathJax_Preview"><script type="math/tex">
+\alpha
+</script>
+</span>, we get
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\frac{\partial\mathcal{Q}}{\partial\alpha}=\frac{1}{P(W)}\sum_{r\in R}\left\{ \mu(r)\frac{\partial E(r;\alpha)}{\partial\alpha}\right\} .\label{eq:44}
+\end{equation}
+</script>
+
+</span>
+Using the definition of the energy function from (<a class="Reference" href="#eq:energy_def">↓</a>), the partials <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial E}{\partial u}
+</script>
+</span>, <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial E}{\partial W}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial E}{\partial X}
+</script>
+</span> are
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\frac{\partial E(r;u,W,X)}{\partial u}=g^{\prime}(u^{T}pa)pa,
+\end{equation}
+</script>
+
+</span>
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\frac{\partial E(r;u,W,X)}{\partial W}=g^{\prime}(u^{T}pa)\frac{\partial pa}{\partial W},
+\end{equation}
+</script>
+
+</span>
+and<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\frac{\partial E(r;u,W,X)}{\partial X}=g^{\prime}(u^{T}pa)\frac{\partial pa}{\partial X}.
+\end{equation}
+</script>
+
+</span>
+The derivatives <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial pa}{\partial W}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial pa}{\partial X}
+</script>
+</span> can be recursively calculated as follows:
+</div>
+<div class="Paragraph">
+<a class="toc" name="toc-Paragraph-1"></a><span class="MathJax_Preview"><script type="math/tex">
+\mathbf{\partial pa/\partial W}
+</script>
+</span>:
+</div>
+<div class="Unindented">
+<b><i>Base Case:</i></b> For terminal node <span class="MathJax_Preview"><script type="math/tex">
+p
+</script>
+</span>, <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial pa}{\partial W}
+</script>
+</span> is zero as there is no composition involved.
+</div>
+<div class="Indented">
+<b><i>Recursive Definition:</i></b> Let <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial c_{1}}{\partial W}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial c_{2}}{\partial W}
+</script>
+</span> be the partial derivatives of children <span class="MathJax_Preview"><script type="math/tex">
+c_{1}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+c_{2}
+</script>
+</span> respectively. The derivative of parent embedding <span class="MathJax_Preview"><script type="math/tex">
+pa
+</script>
+</span> can then be built using <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial c_{1}}{\partial W}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial c_{2}}{\partial W}
+</script>
+</span> as
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\frac{\partial pa}{\partial W}=f^{\prime}\times\left\{ \boldsymbol{1}_{j}\circ\bigg[\begin{array}{c}
+c_{1}\\
+c_{2}
+\end{array}\bigg]+W\left[\begin{array}{c}
+\frac{\partial c_{1}}{\partial W}\\
+\frac{\partial c_{2}}{\partial W}
+\end{array}\right]\right\}
+\end{equation}
+</script>
+
+</span>
+where \strikeout off\uuline off\uwave off<span class="MathJax_Preview"><script type="math/tex">
+\circ
+</script>
+</span> is the Hadamard product.
+</div>
+<div class="Paragraph">
+<a class="toc" name="toc-Paragraph-2"></a><span class="MathJax_Preview"><script type="math/tex">
+\mathbf{\partial pa/\partial X}
+</script>
+</span>:
+</div>
+<div class="Unindented">
+<b><i>Base Case:</i></b> Let <span class="MathJax_Preview"><script type="math/tex">
+x_{i}
+</script>
+</span> be an embedding vector in <span class="MathJax_Preview"><script type="math/tex">
+X
+</script>
+</span>. For a terminal node <span class="MathJax_Preview"><script type="math/tex">
+p
+</script>
+</span>, there are two possibilities, either <span class="MathJax_Preview"><script type="math/tex">
+p
+</script>
+</span> is equal to <span class="MathJax_Preview"><script type="math/tex">
+x_{i}
+</script>
+</span> or it is not. If <span class="MathJax_Preview"><script type="math/tex">
+p=x_{i}
+</script>
+</span>, <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial p}{\partial x_{i}}
+</script>
+</span> is the identity matrix <span class="MathJax_Preview"><script type="math/tex">
+I_{d\times d}
+</script>
+</span> otherwise, it is zero.
+</div>
+<div class="Indented">
+<b><i>Recursive Definition:</i></b> Let <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial c_{1}}{\partial x_{i}}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial c_{2}}{\partial x_{i}}
+</script>
+</span> be the partial derivatives of children <span class="MathJax_Preview"><script type="math/tex">
+c_{1}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+c_{2}
+</script>
+</span> respectively w.r.t. <span class="MathJax_Preview"><script type="math/tex">
+x_{i}
+</script>
+</span>. The derivative of the parent embedding <span class="MathJax_Preview"><script type="math/tex">
+pa
+</script>
+</span> can be built using <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial c_{1}}{\partial x_{i}}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+\frac{\partial c_{2}}{\partial x_{i}}
+</script>
+</span> as
+</div>
+<div class="Indented">
+<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+\frac{\partial pa}{\partial x_{i}}=f^{\prime}\circ W\bigg[\begin{array}{c}
+\frac{\partial c_{1}}{\partial x_{i}}\\
+\frac{\partial c_{2}}{\partial x_{i}}
+\end{array}\bigg].
+\end{equation}
+</script>
+
+</span>
+
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="fig:Two-different-composition"> </a><div class="figure">
+<div class="center">
+<img class="embedded" src="images/phrasal_representation1.jpg" alt="figure images/phrasal_representation1.jpg" style="width: 50%; height: auto; float: left;"/>
+<img class="embedded" src="images/phrasal_representation2.jpg" alt="figure images/phrasal_representation2.jpg" style="width: 50%; height: auto; float: right"/>
+
+</div>
+<div class="caption">
+Figure 4 Two different compositional trees for <span class="MathJax_Preview"><script type="math/tex">
+w_{1}^{3}
+</script>
+</span> leading to different phrasal representations<i>.</i>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-4.3">4.3</a> Phrasal Representation
+</h2>
+<div class="Unindented">
+One of the inherent assumptions we made while using the Inside-Outside Algorithm was that each span has a unique representation. This is an important assumption because the <i>states</i> in the Inside and Outside algorithms are these spans. A distributed representation breaks this assumption. To understand this, let’s consider a three word sentence <span class="MathJax_Preview"><script type="math/tex">
+w_{1}^{3}
+</script>
+</span>. Figure <a class="Reference" href="#fig:Two-different-composition">4↑</a> shows possible derivations of this sentence. Embeddings for <span class="MathJax_Preview"><script type="math/tex">
+p_{\{1\{23\}\}}
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+p_{\{\{12\}3\}}
+</script>
+</span> are different as they follow different compositional paths despite both representing the same phrase <span class="MathJax_Preview"><script type="math/tex">
+w_{1}^{3}
+</script>
+</span>. Generalizing this, any sentence or phrase of length <span class="MathJax_Preview"><script type="math/tex">
+3
+</script>
+</span> or greater would suffer from the multiple representation problem due to multiple possible compositional pathways.
+</div>
+<div class="Indented">
+To understand why this is an issue, let’s examine the Inside algorithm recursion. Dynamic programming works while calculating <span class="MathJax_Preview"><script type="math/tex">
+\pi(A,w_{i}^{j})
+</script>
+</span> because we assume that there is only one possible value for each of <span class="MathJax_Preview"><script type="math/tex">
+\pi(B,w_{i}^{k})
+</script>
+</span> and <span class="MathJax_Preview"><script type="math/tex">
+\pi(C,w_{k+1}^{j})
+</script>
+</span>. As our compositional probability <span class="MathJax_Preview"><script type="math/tex">
+p(r)
+</script>
+</span> depends upon the phrase embeddings, so multiple possible phrase representations would mean multiple values for <span class="MathJax_Preview"><script type="math/tex">
+\zeta_{r}
+</script>
+</span> leading to multiple inside probabilities for each span. This can also be seen as breakage of the independence assumption of CFGs, as now, the probability of the parent node also depends upon how it’s children were composed.
+</div>
+<div class="Indented">
+We restore the assumption by taking the expected value of phrasal embeddings w.r.t. its compositional inside probability <span class="MathJax_Preview"><script type="math/tex">
+\pi(w_{i}^{j}\rightarrow w_{i}^{k}w_{k+1}^{j})
+</script>
+</span> <span class="FootOuter"><span class="SupFootMarker"> [C] </span><span class="HoverFoot"><span class="SupFootMarker"> [C] </span>Inside probability of composition <span class="MathJax_Preview"><script type="math/tex">
+\pi(w_{i}^{j}\rightarrow w_{i}^{k}w_{k+1}^{j})
+</script>
+</span> is Inside rule probability <span class="MathJax_Preview"><script type="math/tex">
+\pi(A,w_{i}^{j}\rightarrow BC,w_{i}^{k}w_{k+1}^{j}
+</script>
+</span>) marginalized for all non terminals</span></span><span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+X(i,j)=E_{\pi}[X(i,k,j)].
+\end{equation}
+</script>
+
+</span>
+With this approximation, the phrasal embedding for <span class="MathJax_Preview"><script type="math/tex">
+w_{1}^{3}
+</script>
+</span> from Figure <a class="Reference" href="#fig:Two-different-composition">4↑</a> is <span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{multline}
+X(1,3)=p_{\{1\{23\}\}}\pi(w_{1}^{3}\rightarrow w_{1}w_{2}^{3})+\\
+p_{\{\{12\}3\}}\pi(w_{1}^{3}\rightarrow w_{1}^{2}w_{3}).
+\end{multline}
+</script>
+
+</span>
+
+</div>
+<div class="Indented">
+This representation is intuitive as well. If composition structures for a phrase leads to multiple representations, then the best way to represent that phrase would be an average representation weighted by the probability of each composition. Now, with the context free assumption restored, we can use the Inside-Outside algorithm for efficient marginalization and training.
+</div>
+<div class="Indented">
+In the above three sections, we have highlighted the inherent sequential tree assumption of the traditional models, proposed a compositional model and derived efficient algorithms to compute <span class="MathJax_Preview"><script type="math/tex">
+p(W)
+</script>
+</span> and to train the parameters. In the next section, we look at how to evaluate our compositional model. For this we use a  recently proposed discriminative metric, Contrastive Entropy, which doesn’t not require the explicit computation of the partition function.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-5">5</a> Evaluation
+</h1>
+<div class="Unindented">
+The most commonly used metric for benchmarking language models is perplexity. Despite its widespread use, it cannot evaluate sentence level models like ours due to its reliance on exact probabilities. We overcome this by proposing a new discriminative evaluation metric we refer to as Contrastive Entropy. The goal of this new metric is to evaluate the ability of the model to discriminate between good and bad sentences.
+</div>
+<div class="Indented">
+We define contrastive entropy, \strikeout off\uuline off\uwave off<span class="MathJax_Preview"><script type="math/tex">
+H_{C}
+</script>
+</span>,<span class="default">\uuline default\uwave default as the difference between the entropy of the test sentence <span class="MathJax_Preview"><script type="math/tex">
+W_{n}
+</script>
+</span>, and the entropy of the distorted version of the test sentences <span class="MathJax_Preview"><script type="math/tex">
+\hat{W}_{n}
+</script>
+</span> i.e.<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+H_{C}(D;d)=\frac{1}{N}\sum_{W_{n}\in D}H(\hat{W}_{n};d)-H(W_{n})
+\end{equation}
+</script>
+
+</span>
+Here <span class="MathJax_Preview"><script type="math/tex">
+D
+</script>
+</span> is the test set, <span class="MathJax_Preview"><script type="math/tex">
+d
+</script>
+</span> is the measure of distortion and <span class="MathJax_Preview"><script type="math/tex">
+N
+</script>
+</span>, the number of words or sentences for word level or sentence level models respectively. </span>
+</div>
+<div class="Indented">
+As this measure is not scale invariant, we also report contrastive entropy ratio <span class="MathJax_Preview"><script type="math/tex">
+H_{CR}
+</script>
+</span> w.r.t. a baseline distortion level <span class="MathJax_Preview"><script type="math/tex">
+d_{b}
+</script>
+</span> i.e.<span class="MathJax_Preview">
+<script type="math/tex;mode=display">
+\begin{equation}
+H_{CR}(D;d_{b},d)=\frac{H_{C}(D;d)}{H_{C}(D;d_{b})}.
+\end{equation}
+</script>
+
+</span>
+More details regarding this metric and comparative results on the Pen Treebank dataset can be found in the attached supplementary note.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-5.1">5.1</a> Results
+</h2>
+<div class="Unindented">
+We use the example dataset provided with the RNNLM toolkit <span class="bibcites">[<a class="bibliocite" name="cite-14" href="#biblio-14"><span class="bib-index">14</span></a>]</span> for evaluation purposes. The dataset is split into training, testing and validation set of sizes 10000, 1000 and 1000 sentences respectively. The training set contains 3720 different words and the test set contains 206 vocabulary words. All reported values here are averaged over 10 runs.
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="fig:distortion_vs_cppl"> </a><div class="figure" style="max-width: 100%;">
+<div class="center">
+<img class="figure" src="images/cont_ent_vs_distortion.png" alt="figure images/cont_ent_vs_distortion.png"/>
+<div class="caption">
+Figure 5 Contrastive entropy vs distortion levels
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="Indented">
+
+</div>
+<div class="Indented">
+Figure <a class="Reference" href="#fig:distortion_vs_cppl">5↑</a> shows the monotonic increase in contrastive perplexity as the test distortion level increases. This is in line with hypothesis that the discriminative ability of a language model should increase with the test set distortion levels.
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="tab:H_C"> </a><div class="table">
+<div class="PlainVisible">
+<div class="center">
+<table>
+<tr>
+<td align="center" valign="top" style="width: 25%;">
+Model
+</td>
+<td align="center" valign="top" style="width: 10%;">
+ppl
+</td>
+<td align="center" valign="top" style="width: 10%;">
+<span class="MathJax_Preview"><script type="math/tex">
+10\%
+</script>
+</span>
+</td>
+<td align="center" valign="top" style="width: 10%;">
+<span class="MathJax_Preview"><script type="math/tex">
+20\%
+</script>
+</span>
+</td>
+<td align="center" valign="top" style="width: 10%;">
+<span class="MathJax_Preview"><script type="math/tex">
+40\%
+</script>
+</span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 25%;">
+3-gram KN
+</td>
+<td align="center" valign="top" style="width: 10%;">
+67.042
+</td>
+<td align="center" valign="top" style="width: 10%;">
+1.111
+</td>
+<td align="center" valign="top" style="width: 10%;">
+1.853
+</td>
+<td align="center" valign="top" style="width: 10%;">
+2.659
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 25%;">
+5-gram KN
+</td>
+<td align="center" valign="top" style="width: 10%;">
+66.641
+</td>
+<td align="center" valign="top" style="width: 10%;">
+1.107
+</td>
+<td align="center" valign="top" style="width: 10%;">
+1.846
+</td>
+<td align="center" valign="top" style="width: 10%;">
+2.652
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 25%;">
+RNN
+</td>
+<td align="center" valign="top" style="width: 10%;">
+65.361
+</td>
+<td align="center" valign="top" style="width: 10%;">
+1.322
+</td>
+<td align="center" valign="top" style="width: 10%;">
+2.231
+</td>
+<td align="center" valign="top" style="width: 10%;">
+3.227
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 25%;">
+cLM-25
+</td>
+<td align="center" valign="top" style="width: 10%;">
+-
+</td>
+<td align="center" valign="top" style="width: 10%;">
+2.818
+</td>
+<td align="center" valign="top" style="width: 10%;">
+5.252
+</td>
+<td align="center" valign="top" style="width: 10%;">
+8.945
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 25%;">
+cLM-50
+</td>
+<td align="center" valign="top" style="width: 10%;">
+-
+</td>
+<td align="center" valign="top" style="width: 10%;">
+2.833
+</td>
+<td align="center" valign="top" style="width: 10%;">
+5.441
+</td>
+<td align="center" valign="top" style="width: 10%;">
+9.179
+</td>
+
+</tr>
+
+</table>
+
+</div>
+<br/>
+<div class="center">
+<div class="caption">
+Table 1 Contrastive entropy at distortion level 10%, 20% and 40%.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="tab:H_CR"> </a><div class="table">
+<div class="PlainVisible">
+<div class="center">
+<table>
+<tr>
+<td align="center" valign="top" style="width: 30%;">
+Model
+</td>
+<td align="center" valign="top" style="width: 15%;">
+<span class="MathJax_Preview"><script type="math/tex">
+20\%/10\%
+</script>
+</span>
+</td>
+<td align="center" valign="top" style="width: 15%;">
+<span class="MathJax_Preview"><script type="math/tex">
+40\%/10\%
+</script>
+</span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 30%;">
+3-gram KN
+</td>
+<td align="center" valign="top" style="width: 15%;">
+1.668
+</td>
+<td align="center" valign="top" style="width: 15%;">
+2.393
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 30%;">
+5-gram KN
+</td>
+<td align="center" valign="top" style="width: 15%;">
+1.667
+</td>
+<td align="center" valign="top" style="width: 15%;">
+2.395
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 30%;">
+RNN
+</td>
+<td align="center" valign="top" style="width: 15%;">
+1.688
+</td>
+<td align="center" valign="top" style="width: 15%;">
+2.441
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 30%;">
+cLM-25
+</td>
+<td align="center" valign="top" style="width: 15%;">
+1.864
+</td>
+<td align="center" valign="top" style="width: 15%;">
+3.174
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 30%;">
+cLM-50
+</td>
+<td align="center" valign="top" style="width: 15%;">
+1.921
+</td>
+<td align="center" valign="top" style="width: 15%;">
+3.240
+</td>
+
+</tr>
+
+</table>
+
+</div>
+<br/>
+<div class="center">
+<div class="caption">
+Table 2 Contrastive entropy ratio at 20% and 40% distortion with baseline distortion of 10%.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="Indented">
+Table <a class="Reference" href="#tab:H_C">1↑</a> compares our language model to standard language modeling techniques. The n-gram language models here use Kneser Ney (KN5) smoothing and were generated and evaluated using the SRILM toolkit <span class="bibcites">[<a class="bibliocite" name="cite-20" href="#biblio-20"><span class="bib-index">20</span></a>]</span>. The recurrent neural network language model (RNN)  has a hidden layer of size 400 and was generated using the RNNLM toolkit. The compositional language models (CLM) in Table <a class="Reference" href="#tab:H_C">1↑</a> have latent space size of 25 and 50 and were trained using Adagrad <span class="bibcites">[<a class="bibliocite" name="cite-7" href="#biblio-7"><span class="bib-index">7</span></a>]</span> with an initial learning rate of 1 and <span class="MathJax_Preview"><script type="math/tex">
+\ell_{2}
+</script>
+</span> regularization coefficient of 0.1. CLMs show more than 100% improvement over RNNLM, the best performing baseline model, across all distortion levels. Table <a class="Reference" href="#tab:H_CR">2↑</a> confirms that CLM outperforms all the baseline models on entropy ratio and isn’t impacted by scaling issues.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-6">6</a> Conclusion
+</h1>
+<div class="Unindented">
+In this paper we challenged the linear chain assumption of the traditional language models by building a model that uses the compositional structure endowed by context free grammars. We formulated it as a marginalization problem over the joint probability of sentences and structure and reduced it to one of modeling compositional rule probabilities <span class="MathJax_Preview"><script type="math/tex">
+p(r)
+</script>
+</span>. To the best of our knowledge, this is the first model that looks beyond the linear chain assumption and uses the compositional structure to model the language. It is important to note that this compositional framework is much more general and the way this paper models <span class="MathJax_Preview"><script type="math/tex">
+p(r)
+</script>
+</span> is only one of many possible ways to do so.
+</div>
+<div class="Indented">
+Also, this paper proposed a compositional framework that recursively embeds phrases in a latent space and then builds a distribution over it. This provides us with a distributional language representation framework which, if trained properly, can be used as a base for various language processing tasks like NER, POS tagging and sentiment analysis. The assumption here is that most of the heavy lifting will be done by the representation and a simple classifier should be able to give good results over the benchmarks. We also hypothesize that phrasal embeddings generated using this model will be much more robust and will also exhibit interesting regularities due to the marginalization over all possible structures.
+</div>
+<div class="Indented">
+As the likelihood optimization proposed here is highly non linear, better initialization, and improved optimization and regularization techniques being developed for deep architectures can further improve these results. Another area of research is to study the effects of the choice of compositional functions and additional constraints on representation generated by the model and finally the performance of the classification layer built on top.<p><br/>
+</p>
+
+</div>
+<div class="Indented">
+<h1 class="biblio">
+References
+</h1>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-1"><span class="bib-index">1</span></a>] </span> <span class="bib-authors">L Douglas Baker, Andrew Kachites McCallum</span>: “<span class="bib-title">Distributional clustering of words for text classification</span>”, <i><span class="bib-booktitle">Proceedings of the 21st annual international ACM SIGIR conference on Research and development in information retrieval</span></i>, pp. <span class="bib-pages">96—103</span>, <span class="bib-year">1998</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-2"><span class="bib-index">2</span></a>] </span> <span class="bib-authors">Yoshua Bengio, Holger Schwenk, Jean-Sébastien Senécal, Fréderic Morin, Jean-Luc Gauvain</span>: <i><span class="bib-title">Neural probabilistic language models</span></i> in <i><span class="bib-booktitle">Innovations in Machine Learning</span></i>. <span class="bib-publisher">Springer</span>, <span class="bib-year">2006</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-3"><span class="bib-index">3</span></a>] </span> <span class="bib-authors">Peter F Brown, Peter V Desouza, Robert L Mercer, Vincent J Della Pietra, Jenifer C Lai</span>: “<span class="bib-title">Class-based n-gram models of natural language</span>”, <i><span class="bib-journal">Computational linguistics</span></i>, pp. <span class="bib-pages">467—479</span>, <span class="bib-year">1992</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-4"><span class="bib-index">4</span></a>] </span> <span class="bib-authors">Eugene Charniak</span>: “<span class="bib-title">Immediate-head parsing for language models</span>”, <i><span class="bib-booktitle">Proceedings of the 39th Annual Meeting on Association for Computational Linguistics</span></i>, pp. <span class="bib-pages">124—131</span>, <span class="bib-year">2001</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-5"><span class="bib-index">5</span></a>] </span> <span class="bib-authors">Ciprian Chelba, David Engle, Frederick Jelinek, Victor Jimenez, Sanjeev Khudanpur, Lidia Mangu, Harry Printz, Eric Ristad, Ronald Rosenfeld, Andreas Stolcke, others</span>: “<span class="bib-title">Structure and performance of a dependency language model.</span>”, <i><span class="bib-booktitle">EUROSPEECH</span></i>, <span class="bib-year">1997</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-6"><span class="bib-index">6</span></a>] </span> <span class="bib-authors">Ciprian Chelba, Frederick Jelinek</span>: “<span class="bib-title">Structured language modeling</span>”, <i><span class="bib-journal">Computer Speech & Language</span></i>, pp. <span class="bib-pages">283—332</span>, <span class="bib-year">2000</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-7"><span class="bib-index">7</span></a>] </span> <span class="bib-authors">John Duchi, Elad Hazan, Yoram Singer</span>: “<span class="bib-title">Adaptive subgradient methods for online learning and stochastic optimization</span>”, <i><span class="bib-journal">The Journal of Machine Learning Research</span></i>, pp. <span class="bib-pages">2121—2159</span>, <span class="bib-year">2011</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-8"><span class="bib-index">8</span></a>] </span> <span class="bib-authors">Joshua T Goodman</span>: “<span class="bib-title">A bit of progress in language modeling</span>”, <i><span class="bib-journal">Computer Speech & Language</span></i>, pp. <span class="bib-pages">403—434</span>, <span class="bib-year">2001</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-9"><span class="bib-index">9</span></a>] </span> <span class="bib-authors">Roland Kuhn, Renato De Mori</span>: “<span class="bib-title">A cache-based natural language model for speech recognition</span>”, <i><span class="bib-journal">Pattern Analysis and Machine Intelligence, IEEE Transactions on</span></i>, pp. <span class="bib-pages">570—583</span>, <span class="bib-year">1990</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-10"><span class="bib-index">10</span></a>] </span> <span class="bib-authors">Karim Lari, Steve J Young</span>: “<span class="bib-title">The estimation of stochastic context-free grammars using the inside-outside algorithm</span>”, <i><span class="bib-journal">Computer speech & language</span></i>, pp. <span class="bib-pages">35—56</span>, <span class="bib-year">1990</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-11"><span class="bib-index">11</span></a>] </span> <span class="bib-authors">Raymond Lau, Ronald Rosenfeld, Salim Roukos</span>: “<span class="bib-title">Trigger-based language models: A maximum entropy approach</span>”, <i><span class="bib-booktitle">Acoustics, Speech, and Signal Processing, 1993. ICASSP-93., 1993 IEEE International Conference on</span></i>, pp. <span class="bib-pages">45—48</span>, <span class="bib-year">1993</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-12"><span class="bib-index">12</span></a>] </span> <span class="bib-authors">Tomas Mikolov, Martin Karafiát, Lukas Burget, Jan Cernockỳ, Sanjeev Khudanpur</span>: “<span class="bib-title">Recurrent neural network based language model.</span>”, <i><span class="bib-booktitle">INTERSPEECH</span></i>, pp. <span class="bib-pages">1045—1048</span>, <span class="bib-year">2010</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-13"><span class="bib-index">13</span></a>] </span> <span class="bib-authors">Tomas Mikolov, Stefan Kombrink, Lukas Burget, JH Cernocky, Sanjeev Khudanpur</span>: “<span class="bib-title">Extensions of recurrent neural network language model</span>”, <i><span class="bib-booktitle">Acoustics, Speech and Signal Processing (ICASSP), 2011 IEEE International Conference on</span></i>, pp. <span class="bib-pages">5528—5531</span>, <span class="bib-year">2011</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-14"><span class="bib-index">14</span></a>] </span> <span class="bib-authors">Tomas Mikolov, Stefan Kombrink, Anoop Deoras, Lukar Burget, Jan Cernocky</span>: “<span class="bib-title">RNNLM-Recurrent neural network language modeling toolkit</span>”, <i><span class="bib-booktitle"></span></i>, <span class="bib-year"></span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-15"><span class="bib-index">15</span></a>] </span> <span class="bib-authors">Andriy Mnih, Geoffrey E Hinton</span>: “<span class="bib-title">A scalable hierarchical distributed language model</span>”, <i><span class="bib-booktitle">Advances in neural information processing systems</span></i>, pp. <span class="bib-pages">1081—1088</span>, <span class="bib-year">2009</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-16"><span class="bib-index">16</span></a>] </span> <span class="bib-authors">Frederic Morin, Yoshua Bengio</span>: “<span class="bib-title">Hierarchical probabilistic neural network language model</span>”, <i><span class="bib-booktitle">AISTATS</span></i>, pp. <span class="bib-pages">246—252</span>, <span class="bib-year">2005</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-17"><span class="bib-index">17</span></a>] </span> <span class="bib-authors">Fernando Pereira, Naftali Tishby, Lillian Lee</span>: “<span class="bib-title">Distributional clustering of English words</span>”, <i><span class="bib-booktitle">Proceedings of the 31st annual meeting on Association for Computational Linguistics</span></i>, pp. <span class="bib-pages">183—190</span>, <span class="bib-year">1993</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-18"><span class="bib-index">18</span></a>] </span> <span class="bib-authors">Richard Socher, John Bauer, Christopher D Manning, Andrew Y Ng</span>: “<span class="bib-title">Parsing with compositional vector grammars</span>”, <i><span class="bib-booktitle">In Proceedings of the ACL conference</span></i>, <span class="bib-year">2013</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-19"><span class="bib-index">19</span></a>] </span> <span class="bib-authors">Richard Socher, Christopher D Manning, Andrew Y Ng</span>: “<span class="bib-title">Learning continuous phrase representations and syntactic parsing with recursive neural networks</span>”, <i><span class="bib-booktitle">Proceedings of the NIPS-2010 Deep Learning and Unsupervised Feature Learning Workshop</span></i>, pp. <span class="bib-pages">1—9</span>, <span class="bib-year">2010</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-20"><span class="bib-index">20</span></a>] </span> <span class="bib-authors">Andreas Stolcke, others</span>: “<span class="bib-title">SRILM-an extensible language modeling toolkit.</span>”, <i><span class="bib-booktitle">INTERSPEECH</span></i>, <span class="bib-year">2002</span>.
+</p>
+
+</div>
+
+</div>
+</body>
+</html>

@@ -2,14 +2,12 @@
 layout: page
 ---
 
-Hey there! I am Kushal Arora. I am currently a software engineer at Amazon. Here I am working with Alexa's Machine Learning Platform(MLP) team supporting model building and release for ASR and NLU for Alexa. I also contribute on regular basis to Alexa's Algorithm's team helping them develop our in house deep learning library.
+Hey there! I am Kushal Arora. I am currently a software engineer at Amazon, working with Alexa's Machine Learning Platform team on ASR and NLU modeling infrastructure. I also spend a part of my time on Alexa's Algorithm's team helping develop our in house deep learning library.
 
-Before joining Amazon, I was a MS(thesis) student at University of Florida's Computer Science department, working with Prof. [Anand Rangarajan](http://cise.ufl.edu~anand) on Compositional Language Modeling. I have also spent a semester in Dr. [Daisy Wang](http://cise.ufl.edu/~daisyw)'s lab working on the problem of Ontology Alginment.
+Before joining Amazon, I was a master's student at University of Florida's Department of Computer and Information Sciences with focus on Machine Learning. There I was working with Prof. [Anand Rangarajan](http://cise.ufl.edu~anand) on my thesis titled Compositional Language Modeling. I have also spent a semester in Dr. [Daisy Wang](http://cise.ufl.edu/~daisyw)'s lab working on the problem of Ontology Alignment.
 
-My research interest primarily lie in the area of learning unsupervised language representation and composition. I strongly believe a roboust representation can then be used to better current state of the art classifiers for many NLU tasks like sentiment analysis, paraphrase detection, sentence completion and parsing to name a few. The assumption here is that most of the heavy lifting of building roboust features would already be taken care of by these representations and composition functions and a simple classification layer on top of this should be able to learn the weights better. I am also interested in problem of defining what a roboust representation means and metrics to evaluate these compositional frameworks and embeddings.
-
-As this problem needs strong understanding of deep network training, I am also interested in optimization and regularization techniques for deep networks. I also believe the best way to look at this problem is to see this as a manifold learning problem, hence, I am also interested in building on basics of manifold learning theory I studied in Advanced Machine Learning class at University of Florida.
+My research interest primarily lies in building a syntactically and semantically aware compositional representation of language. I know this can be mouthful and you can read more about it [here](/research).
 
 I am looking for research positions starting Summer/Fall 2016 and would appreciate any leads in that regards.
 
-Thanks for reading!
+Thanks for visiting!
