@@ -29,7 +29,7 @@ four data sets, namely RaceSpace, Digits, Faces and Swiss Roll. The project was 
     [[pdf](/assets/AMLProjectReport.pdf), [code](https://github.com/kushalarora/ManifoldAlgorithms.git)]
 
 * #### Comparative Evaluation of Supervised Learning Algorithms ####
-Built a generic framework to run a list of Supervised Learning Algorithms in Python using scikit­-learn and Theano. The framework was used to do a comparative study on following data sets: Wisconsin Breast Cancer, Iris, Higgs, OCR and Hand Writing Recognition across a range of supervised learning algorithms. This project was done in a team of three for Machine Learning class.
+Built a generic framework to run a list of Supervised Learning Algorithms in Python using scikit­-learn and Theheano. The framework was used to do a comparative study on following data sets: Wisconsin Breast Cancer, Iris, Higgs, OCR and Hand Writing Recognition across a range of supervised learning algorithms. This project was done in a team of three for Machine Learning class.
 
     <em><strong>Algorithms evaluated</strong>: Multi Layer Perceptron, Stacked Auto Encoders, Deep Belief Network, Support Vector Machine, Random Forest, Decision Tree, AdaBoost Decision Tree. </em>
 
