@@ -28,11 +28,12 @@ github:
 
 # Pagelist
 pages_list:
-    Projects: '/projects'
     Research: '/research'
-#    Blog: '/blog'
-#    Notes: '/notes'
+    Projects: '/projects'
+    Blog: '/blog'
+    Notes: '/notes'
     CV: '/cv'
+
 
 # Gems
 gems:
