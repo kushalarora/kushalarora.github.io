@@ -31,6 +31,7 @@ pages_list:
     Research: '/research'
     Projects: '/projects'
     CV: '/cv'
+    Misc: '/misc'
 
 
 # Gems
