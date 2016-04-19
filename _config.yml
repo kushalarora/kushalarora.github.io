@@ -30,8 +30,8 @@ github:
 pages_list:
     Research: '/research'
     Projects: '/projects'
-    CV: '/cv'
     Misc: '/misc'
+    CV: '/assets/KushalAroraCV.pdf'
 
 
 # Gems
