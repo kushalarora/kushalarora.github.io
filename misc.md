@@ -3,7 +3,7 @@ layout: page
 title: Links, Notes and Rants
 ---
 
-## Links: ##
+## Reading List: ##
 
 * Norvig vs Chomsky: [link](http://norvig.com/chomsky.html)
 

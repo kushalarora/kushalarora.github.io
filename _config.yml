@@ -31,7 +31,7 @@ pages_list:
     Research: '/research'
     Projects: '/projects'
     Misc.: '/misc'
-    CV: '/assets/KushalAroraCV.pdf'
+    CV: '/cv'
 
 
 # Gems
