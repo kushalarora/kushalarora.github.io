@@ -3,19 +3,19 @@ layout: page
 title: Reading List
 ---
 
-## General: ##
+#### General: ####
 * Norvig vs Chomsky: [link](http://norvig.com/chomsky.html)
 * *On our best behvior* by Hector J. Levesque: [link](http://www.cs.toronto.edu/~hector/Papers/ijcai-13-paper.pdf)
 
-## Language Modeling: ##
+#### Language Modeling: ####
 
-## Compositional Models: ##
+#### Compositional Models: ####
 
-## Neural Networks: ##
+#### Neural Networks: ####
 
-## Representation Learning: ##
+#### Representation Learning: ####
 
-## Language Embeddings: ##
+#### Language Embeddings: ####
 
-## Manifold Learning: ##
+#### Manifold Learning: ####
 
