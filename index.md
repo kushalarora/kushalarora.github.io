@@ -1,8 +1,8 @@
 ---
-layout: page
+layout: page 
 ---
 
-Hey there! I am Kushal Arora. 
+Hey there! I am Kushal Arora.
 
 I am currently a software engineer at Amazon, working with Alexa's Algorithms team. My team is responsible for developing machine learning libraries/algorithms used inside Amazon Alexa.
 
