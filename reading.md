@@ -57,3 +57,4 @@ title: (An Incomplete) Reading List
 * [Laplacian eigenmaps](https://pdfs.semanticscholar.org/989a/f45f8242b96cecb91d48b85620e7322e4aa7.pdf)
 * [Diffusion maps](http://inside.mines.edu/~whereman/talks/delaPorte-Herbst-Hereman-vanderWalt-DiffusionMaps-PRASA2008.pdf)
 * [Neighborhood Preserving Embedding](http://people.cs.uchicago.edu/~xiaofei/conference-15.pdf)
+* [Neural Networks, Manifolds, and Topology](http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/)
