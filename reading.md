@@ -50,6 +50,7 @@ title: (An Incomplete) Reading List
 * [Distributed Representations of Sentences and Documents.](http://www.jmlr.org/proceedings/papers/v32/le*pdf)
 * [Zero-shot learning by convex combination of semantic embeddings](https://arxiv.org/pdf/**pdf)
 * [Enriching Word Vectors with Subword Information](https://arxiv.org/pdf/**pdf)
+* [Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation](https://arxiv.org/pdf/1406.1078v3)
 
 #### Manifold Learning: ####
 * [An Introduction to Locally Linear Embedding](https://www.cs.nyu.edu/~roweis/lle/papers/lleintro.pdf)
@@ -58,3 +59,5 @@ title: (An Incomplete) Reading List
 * [Diffusion maps](http://inside.mines.edu/~whereman/talks/delaPorte-Herbst-Hereman-vanderWalt-DiffusionMaps-PRASA2008.pdf)
 * [Neighborhood Preserving Embedding](http://people.cs.uchicago.edu/~xiaofei/conference-15.pdf)
 * [Neural Networks, Manifolds, and Topology](http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/)
+* [Stochastic Neighborhood Embedding](http://www.cs.toronto.edu/~fritz/absps/sne.pdf)
+* [t-Distributed Stochastic Neighbor Embedding](https://lvdmaaten.github.io/publications/papers/JMLR_2014.pdf)
