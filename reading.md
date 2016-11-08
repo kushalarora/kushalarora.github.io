@@ -39,6 +39,7 @@ title: (An Incomplete) Reading List
 * [Gated Feedback Recurrent Neural Networks](http://jmlr.csail.mit.edu/proceedings/papers/v37/chung15.pdf)
 * [Scalable Distributed DNN Training Using Commodity GPU Cloud Computing.](https://s3-us-west-2.amazonaws.com/amazon.jobs-public-documents/strom_interspeech2015.pdf)
 * [Hogwild: A lock-free approach to parallelizing stochastic gradient descent](http://papers.nips.cc/paper/4390-hogwild-a-lock-free-approach-to-parallelizing-stochastic-gradient-descent.pdf)
+* [Sum-Product Networks: A New Deep Architecture](http://homes.cs.washington.edu/~pedrod/papers/uai11a.pdf)
 
 #### Representation Learning: ####
 
