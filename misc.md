@@ -8,3 +8,4 @@ title: Links, Notes and Rants
 5. [How to email.](http://five.sentenc.es/)
 6. [Talking Machines](http://www.thetalkingmachines.com/blog/) (podcast)
 7. [My favorite podcasts](/podcasts)
+8. [CS224d: Deep Learning for Natural Language Processing](http://cs224d.stanford.edu/syllabus.html)
