@@ -33,7 +33,7 @@ pages_list:
     Projects: '/projects'
     Misc.: '/misc'
     Updates: '/updates'
-    Blog: '/blog'
+#    Blog: '/blog'
     CV: '/cv'
 
 
