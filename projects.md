@@ -4,9 +4,9 @@ title: Selected Projects
 ---
 
 #### *Compositional Language Modeling* ####
-Implemented the idea proposed in the paper "*Compositional Approach to Language Modeling*". The code was written in Java. We used Nd4j as our main matrix library and UJMP to store Inside-Outside scores due to its support for sparse matrices. For Inside-Outside score calculation we used the grammar from the Stanford parser. The code is written in a modular way to allow plugging in other grammars without much effort. To my best knowledge this is the first software that does phrasal embedding in a compositional way.
+Implemented the idea proposed in the paper "*Compositional Approach to Language Modeling*". The code was written in Java. We used Nd4j as our main matrix library and UJMP to store Inside-Outside scores due to its support for sparse matrices. For Inside-Outside score calculation we used the grammar from the Stanford parser. The code is written in a modular way to allow plugging in other grammars without much effort.
 
-[[pdf](https://arxiv.org/submit/1522648/view), [code](http://github.com/kushalarora/CompositionalLM.git)]
+[[pdf](https://arxiv.org/abs/1604.00100v1.pdf), [code](http://github.com/kushalarora/CompositionalLM.git)]
 
 #### *Sentence Level Recurrent Neural Network* ####
 Implementation of Sentence Level RNN described in "*Contrastive Entropy: A new evaluation metric for unnormalized models*". The implementation was done using Theano and Numpy.
