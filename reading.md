@@ -6,6 +6,7 @@ title: (An Incomplete) Reading List
 #### Rants: ####
 * [On Chomsky and the Two Cultures of Statistical Learning.](http://norvig.com/chomsky.html)
 * [*On our best behvior* by Hector J. Levesque.](http://www.cs.toronto.edu/~hector/Papers/ijcai-13-paper.pdf)
+* [The Bandwagon by Claude Shannon] (http://www.eoht.info/page/Shannon+bandwagon)
 
 #### Language Modeling: ####
 * [Recurrent neural network based language model.](http://www.fit.vutbr.cz/research/groups/speech/publi/2010/mikolov_interspeech2010_IS*pdf)
@@ -64,3 +65,9 @@ title: (An Incomplete) Reading List
 * [Neural Networks, Manifolds, and Topology](http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/)
 * [Stochastic Neighborhood Embedding](http://www.cs.toronto.edu/~fritz/absps/sne.pdf)
 * [t-Distributed Stochastic Neighbor Embedding](https://lvdmaaten.github.io/publications/papers/JMLR_2014.pdf)
+
+### Psycology: ###
+* [Sunk Cost Fallacy](https://en.wikipedia.org/wiki/Sunk_costs)
+* [Dunning-Kruger Effect](https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect)
+* [Curse of Knowledge](https://en.wikipedia.org/wiki/Curse_of_knowledge)
+* [Confirmation Bias](https://en.wikipedia.org/wiki/Confirmation_bias)
