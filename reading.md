@@ -6,7 +6,7 @@ title: (An Incomplete) Reading List
 #### Rants: ####
 * [On Chomsky and the Two Cultures of Statistical Learning.](http://norvig.com/chomsky.html)
 * [*On our best behvior* by Hector J. Levesque.](http://www.cs.toronto.edu/~hector/Papers/ijcai-13-paper.pdf)
-* [The Bandwagon by Claude Shannon] (http://www.eoht.info/page/Shannon+bandwagon)
+* [The Bandwagon by Claude Shannon](http://www.eoht.info/page/Shannon+bandwagon)
 
 #### Language Modeling: ####
 * [Recurrent neural network based language model.](http://www.fit.vutbr.cz/research/groups/speech/publi/2010/mikolov_interspeech2010_IS*pdf)
