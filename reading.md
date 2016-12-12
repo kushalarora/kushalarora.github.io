@@ -66,6 +66,9 @@ title: (An Incomplete) Reading List
 * [Stochastic Neighborhood Embedding](http://www.cs.toronto.edu/~fritz/absps/sne.pdf)
 * [t-Distributed Stochastic Neighbor Embedding](https://lvdmaaten.github.io/publications/papers/JMLR_2014.pdf)
 
+#### Optimization: ####
+* [Natural Gradient](https://hips.seas.harvard.edu/blog/2013/01/25/the-natural-gradient/)
+
 ### Psycology: ###
 * [Sunk Cost Fallacy](https://en.wikipedia.org/wiki/Sunk_costs)
 * [Dunning-Kruger Effect](https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect)
