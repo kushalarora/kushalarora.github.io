@@ -1,8 +1,7 @@
 ---
 layout: page
+title: Updates
 ---
-
-## Recent Updates:##
 
 #### [07/20/2016] ####
 
