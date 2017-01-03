@@ -5,7 +5,7 @@ title: Updates
 
 #### [07/20/2016] ####
 
-**Joined Alexa's Machine-Learning Algorithms Team**
+*Joined Alexa's Machine-Learning Algorithms Team*
 
    I have joined to Alexa's new Machine-Learning Algorithms Team. The charter of this new team is to build a fast, reliable and easy-to-use Deep Learning library for internal Amazon use.
 
