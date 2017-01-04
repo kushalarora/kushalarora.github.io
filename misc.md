@@ -11,4 +11,4 @@ title: Links, Notes and Rants
 8. [CS224d: Deep Learning for Natural Language Processing](http://cs224d.stanford.edu/syllabus.html)
 9. [Yoav's Neural Network for NLP course](http://u.cs.biu.ac.il/~yogo/nnlp.pdf)
 10. [Percy Liang's Statistical Learning Theory Notes](https://web.stanford.edu/class/cs229t/notes.pdf)
-11. [2017 Books](/language)
+11. [2017 Books](/books)
