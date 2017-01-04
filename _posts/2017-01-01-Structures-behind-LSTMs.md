@@ -1,5 +1,5 @@
 ---
 layout: post
-title: Structure behind LSTMs.
+title: Structures behind LSTMs.
 hidden: true
 ---
