@@ -29,12 +29,9 @@ github:
 
 # Pagelist
 pages_list:
-    Research: '/research'
-    Projects: '/projects'
     Misc.: '/misc'
     Updates: '/updates'
 #    Blog: '/blog'
-    CV: '/cv'
 
 
 # Gems

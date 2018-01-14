@@ -2,6 +2,12 @@
 layout: page
 title: Updates
 ---
+#### [01/02/2018] ####
+Joined [RLLab@McGill](http://rl.cs.mcgill.ca/) as a Ph.D. student.
+
+Advisors:
+* Prof. [Doina Precup](http://www.cs.mcgill.ca/~dprecup/) 
+* Prof. [Jackie Cheung](http://cs.mcgill.ca/~jcheung/index.html). 
 
 #### [07/20/2016] ####
 
