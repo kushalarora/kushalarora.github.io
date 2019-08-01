@@ -14,7 +14,7 @@ social: true
 
 Hey there! I am Kushal Arora.
 
-I am a second year Ph.D. student at McGill and Mila. I am  jointly supervised by Prof. [Doina Precup](http://www.cs.mcgill.ca/~dprecup/) and Prof. [Jackie Cheung](http://cs.mcgill.ca/~jcheung/index.html).
+I am a second year Ph.D. student at McGill and Mila. I am  jointly supervised by Prof. [Jackie Cheung](http://cs.mcgill.ca/~jcheung/index.html) and Prof. [Doina Precup](http://www.cs.mcgill.ca/~dprecup/).
 
 Before joining McGill, I was a software engineer at Amazon Alexa's Algorithms team. My work there focused on scaling distributed deep learning approaches for speech and language understanding.
 
