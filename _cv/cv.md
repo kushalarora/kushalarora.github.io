@@ -17,7 +17,7 @@ Language modeling and generation, sequential decision making, compositionality i
             <p>
                 <strong> PhD, Computer Science</strong><br>
                 <em>McGill University, Montreal</em><br>
-                Advisors: Doina Precup and Jackie CK Cheung
+                Advisors: Jackie CK Cheung and Doina Precup
             </p>
             <p>
                 <strong>Courses Taken</strong>:
