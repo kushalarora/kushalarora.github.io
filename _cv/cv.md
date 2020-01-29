@@ -70,12 +70,13 @@ Language modeling and generation, sequential decision making, compositionality i
 </table>
 
 #### **<span style="text-decoration:underline;">PUBLICATIONS:</span>**
+<strong><em>Kushal Arora\*</em></strong>, A. Chakraborty*, and J. Cheung. “<em>Learning Lexical Subspaces in the Distributional Vector Space</em>”, Transactions of the Association for Computational Linguistics (to appear in April and to be presented at ACL 2020). 
+
 S. Thakur, H. Van Hoof, <strong><em>Kushal Arora</em></strong>, D. Precup, and D. Meger <em>"Sample Efficient Learning From Demonstrations on Multiple Tasks using Bayesian Neural Networks"</em>, Imitation Learning and its Challenges in Robotics Workshop, NeurIPS 2018.
 
 S. Grover, <strong><em>Kushal Arora</em></strong>, and S. K. Mitra. <em>"Text extraction from document images using edge information."</em> India Conference (INDICON), 2009 Annual IEEE. IEEE, 2009.
 
 #### **<span style="text-decoration:underline;">PREPRINTS:</span>**
-<strong><em>Kushal Arora\*</em></strong>, A. Chakraborty*, and J. Cheung. “<em>Learning Lexical Subspaces in the Distributional Vector Space</em>”.
 
 P. Partharathi, <strong><em>Kushal Arora</em></strong>, P. Budzianowski, J. Cheung, S. Chandar, and J. Pineau “<em>GraphDial: Building an Interpretable Dynamic Graph for Improved Conditional Language Generation</em>”. (Submitted to CoNLL 2019.)
 
