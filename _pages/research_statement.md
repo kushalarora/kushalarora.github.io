@@ -2,6 +2,7 @@
 layout: page 
 permalink: /research_statement
 title: Research Statement 
+exclude: true
 ---
 
 My Ph.D. research is primarily focused on posing language generation as a sequential decision-making problem. Looked at from this perspective, the language generation problem can be seen as an instance of imitation learning (IL) and maxium likelihood based training as behavior cloning. The shortcomings of behavior cloning—the need for large amounts of data to cover the whole state space to learn a reasonable policy—are well known in the imitation learning community. This is especially true for complex domains with large state spaces. Language is one such domain with complex reward structures, exponentially exploding state space (if contexts are considered to be a state), the hierarchy at phrasal, sentence and discourse level. 
