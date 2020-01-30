@@ -2,7 +2,7 @@
 layout: post
 date: 2020-01-28
 inline: false
-title: LexSub accepted to TACL 
+title: Paper accepted to TACL 
 ---
 
 Our recent work in collaboration with [Aishik Chakraborty](http://aishikchakraborty.github.io/) and Prof. [Jackie Cheung](https://www.cs.mcgill.ca/~jcheung/) was accepted to [Transactions of the ACL (TACL)](https://transacl.org/index.php/tacl). 
