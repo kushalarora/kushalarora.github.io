@@ -2,6 +2,7 @@
 layout: default
 title: summaries
 permalink: /summaries
+nav: true
 ---
 <ul class="post-list">
   {% for post in site.summaries %}
