@@ -147,12 +147,12 @@ scholar:
 # Optional Features
 # -----------------------------------------------------------------------------
 
-enable_google_analytics:  false
+enable_google_analytics:  true
 enable_katex:             true
 enable_mansory:           true
 enable_progressbar:       true
-enable_tooltips:          false
-show_social_icons:        false
+enable_tooltips:          true
+show_social_icons:        true
 
 # -----------------------------------------------------------------------------
 # Library versions
