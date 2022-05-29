@@ -14,11 +14,12 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-I am a third year Ph.D. student at McGill and Mila. I am  jointly supervised by Prof. [Jackie Cheung](http://cs.mcgill.ca/~jcheung/index.html) and Prof. [Doina Precup](http://www.cs.mcgill.ca/~dprecup/).
+Hello!! I am a Ph.D. student at McGill University and Mila. I am  jointly supervised by Prof. [Jackie Cheung](http://cs.mcgill.ca/~jcheung/index.html) and Prof. [Doina Precup](http://www.cs.mcgill.ca/~dprecup/). My Ph.D. research is focused on developing smarter training and inference approaches for robust language generation. 
 
-Before joining McGill, I was a software engineer at Amazon Alexa's Algorithms team. My work there focused on scaling distributed deep learning approaches for speech and language understanding.
+**Research Interests**: My research focuses at the intersection of language modeling and imitation learning. I am also interested compositionality and systematicity in language generation and representation.
+
+Before joining McGill University, I was an engineer at Amazon Alexa's Algorithms team. My work there focused on scaling distributed deep learning approaches for speech and language understanding.
 
 Prior to that, I was a master student at University of Florida where I worked with Prof. [Anand Rangarajan](https://www.cise.ufl.edu/~anand/) on Compositional Language Modeling.
 
-My research focuses at the intersection of language modeling and imitation/reinforcement learning. I am also interested in building and evaluating compositional representations for languages.
 
