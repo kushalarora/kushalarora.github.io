@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Kushal  Arora | blank</title>
+<title>Kushal  Arora | New paper on exposure bias accepted to ACL (Findings).</title>
 <meta name="description" content="Academic website of Kushal Arora.
 ">
 
@@ -29,7 +29,7 @@
 <link rel="shortcut icon" href="/assets/img/favicon.ico">
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<link rel="canonical" href="/blog/">
+<link rel="canonical" href="/news/paper_accepted_to_ACL(Findings)/">
 
 <!-- Theming-->
 
@@ -151,62 +151,43 @@
     <!-- Content -->
 
     <div class="container mt-5">
-      <div class="post">
+      
 
-  <div class="header-bar">
-    <h1></h1>
-    <h2></h2>
-  </div>
+<div class="post">
 
+  <header class="post-header">
+    <h1 class="post-title">New paper on exposure bias accepted to ACL (Findings).</h1>
+    <p class="post-meta">February 26, 2022</p>
+  </header>
 
-  <ul class="post-list">
-    
-      <li>
-        <h3><a class="post-title" href="/blog/2020/github-metadata/">a post with github metadata</a></h3>
-        <p class="post-meta">September 28, 2020</p>
-        <p>a quick run down on accessing github metadata.</p>
-      </li>
-    
-      <li>
-        <h3><a class="post-title" href="/blog/2020/twitter/">a post with twitter</a></h3>
-        <p class="post-meta">September 28, 2020</p>
-        <p>an example of a blog post with twitter</p>
-      </li>
-    
-      <li>
-        <h3><a class="post-title" href="/blog/2018/distill/">a distill-style blog post</a></h3>
-        <p class="post-meta">December 22, 2018</p>
-        <p>an example of a distill-style blog post and main elements</p>
-      </li>
-    
-  </ul>
+  <article class="post-content">
+    <h2 id="why-exposure-bias-matters-an-imitation-learning-perspective-of-error-accumulation-in-language-generation">Why Exposure Bias Matters: An Imitation Learning Perspective of Error Accumulation in Language Generation.</h2>
+
+<p>My recent work on analyzing exposure bias and quantifying its impact was accepted in ACL (Findings) 2022.</p>
+
+<p>In this work, we analyzed the language generation from an imitation learning perspective. We posed language generation as a sequential decision-making problem, and language modeling as imitation learning problem. We then showed the equivalence of maximum likelihood training for language modeling and behavior cloning– an imitation learning algorithm.</p>
+
+<p>Behavior cloning is known to suffer from accumulation of errors. This error accumulation is analyzed using inference-time regret of the model policy. This regret has been shown to grown near-quadratically w.r.t. to sequence length.</p>
+
+<p>We borrowed this analysis to language generation to show</p>
+
+<ul>
+  <li><em>Error accumulation does happen during language generation.</em></li>
+  <li><em>Perplexity failes to capture this accumulation.</em></li>
+  <li><em>Error accumulation correlates with poor generation quality.</em></li>
+</ul>
+
+<p>Please see the paper and the repo below for more details.</p>
+
+<p>Paper: <a href="https://arxiv.org/abs/2204.01171">https://arxiv.org/abs/2204.01171</a></p>
+
+<p>Code: <a href="https://github.com/kushalarora/quantifying_exposure_bias">https://github.com/kushalarora/quantifying_exposure_bias</a></p>
+
+<p>ACL 2022 Slides: <a href="/assets/acl_2022_qeb_slides.pdf">slides</a></p>
+
+  </article>
 
   
-<nav aria-label="Blog page naviation">
-  <ul class="pagination pagination-lg justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="" tabindex="-1" aria-disabled="">Newer</a>
-    </li>
-    
-      
-        <li class="page-item active"><a class="page-link" href="/blog/index.html" title="blank">1</a></li>
-      
-        <li class="page-item "><a class="page-link" href="/blog/page/2/index.html" title="blank - page 2">2</a></li>
-      
-        <li class="page-item "><a class="page-link" href="/blog/page/3/index.html" title="blank - page 3">3</a></li>
-      
-        <li class="page-item "><a class="page-link" href="/blog/page/4/index.html" title="blank - page 4">4</a></li>
-      
-        <li class="page-item "><a class="page-link" href="/blog/page/5/index.html" title="blank - page 5">5</a></li>
-      
-    
-    <li class="page-item ">
-      <a class="page-link" href="/blog/page/2/">Older</a>
-    </li>
-  </ul>
-</nav>
-
-
 
 </div>
 
