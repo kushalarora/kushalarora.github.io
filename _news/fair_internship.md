@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2022-01-08
-inline: true
+inline: false
 title: Research Internship at Meta AI Research (FAIR Labs)
 ---
 
