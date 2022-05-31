@@ -1,8 +1,7 @@
 ---
 layout: about
 permalink: /
-title: <strong>Kushal</strong> Arora
-description:  <a href="https://mila.quebec/">Mila</a> • <a href="https://www.cs.mcgill.ca/">McGill University</a>
+subtitle: <a href="https://mila.quebec/">Mila</a> • <a href="https://www.cs.mcgill.ca/">McGill University</a>
 
 profile:
   align: right

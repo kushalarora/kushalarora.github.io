@@ -1,3 +1,8 @@
+---
+permalink: /robots.txt
+---
 User-agent: *
 Disallow: /assets/
 Disallow: /news/
+
+Sitemap: {{ site.baseurl | prepend: site.url }}/sitemap.xml
