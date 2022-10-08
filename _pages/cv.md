@@ -12,7 +12,6 @@ Language modeling and generation, sequential decision making, compositionality i
 
 #### **<span style="text-decoration:underline;">EDUCATION:</span>**
 <table>
-    <tr>
        <td style="width: 65%; border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px">
             <p>
                 <strong> PhD, Computer Science</strong><br>
@@ -70,25 +69,99 @@ Language modeling and generation, sequential decision making, compositionality i
 </table>
 
 #### **<span style="text-decoration:underline;">PUBLICATIONS:</span>**
+
+P. Banerjee, S. Mahajan, <strong><em>Kushal Arora</em></strong>, C. Baral, O. Riva, "Lexi: Self-Supervised Learning of the UI Language", Finding of EMNLP, 2022.
+
+J. Xu, M. Ung, M. Komeili, <strong><em>Kushal Arora</em></strong>, Y. Boureau, Jason Weston, "Learning New Skills after Deployment: Improving open-domain internet-driven dialogue with human feedback", arXiv:2208.03270. 
+
+ K. Shuster, J. Xu, M. Komeili, D. Ju, E.M. Smith, S. Roller, M. Ung, M. Chen,<strong><em>Kushal Arora</em></strong>, J. Lane, M. Behrooz, W. Ngan, S. Poff, N. Goyal, A. Szlam, Y. Boureau, M. Kambadur, J. Weston, "BlenderBot 3: a deployed conversational agent that continually learns to responsibly engage.", arXiv:2208.03188.
+
+<strong><em>Kushal Arora</em></strong>,  K. Shuster, S. Sukhbaatar, J. Weston, "DIRECTOR: Generator-Classifiers For Supervised Language Modeling.", arxiv:2206.07694, 2022. AACL 2022.
+
+<strong><em>Kushal Arora</em></strong>, L. El Asri, H. Bahuleyan, J. Cheung, "Why Exposure Bias Matters: An Imitation Learning Perspective of Error Accumulation in Language Generation
+.", Findings of ACL, 2022
+
 <strong><em>Kushal Arora\*</em></strong>, A. Chakraborty*, and J. Cheung. “<em>Learning Lexical Subspaces in the Distributional Vector Space</em>”, Transactions of the Association for Computational Linguistics (presented at ACL 2020).
 
 S. Thakur, H. Van Hoof, <strong><em>Kushal Arora</em></strong>, D. Precup, and D. Meger <em>"Sample Efficient Learning From Demonstrations on Multiple Tasks using Bayesian Neural Networks"</em>, Imitation Learning and its Challenges in Robotics Workshop, NeurIPS 2018.
-
-S. Grover, <strong><em>Kushal Arora</em></strong>, and S. K. Mitra. <em>"Text extraction from document images using edge information."</em> India Conference (INDICON), 2009 Annual IEEE. IEEE, 2009.
-
-#### **<span style="text-decoration:underline;">PREPRINTS:</span>**
-
-<strong><em>Kushal Arora\*</em></strong>, L. El Asri, H. Bahuleyan, and J. Cheung. “<em>On Exposure Bias in Language Generation: An Imitation Learning Perspective</em>”. (Submitted to EMNLP 2020)
-
-P. Partharathi, <strong><em>Kushal Arora</em></strong>, P. Budzianowski, J. Cheung, S. Chandar, and J. Pineau “<em>GraphDial: Building an Interpretable Dynamic Graph for Improved Conditional Language Generation</em>”. (Submitted to SIGDIAL 2020.)
 
 <strong><em>Kushal Arora</em></strong> and A. Rangarajan. “<em>A Compositional Approach to Language Modeling.</em>” arXiv:1604.00100, 2016.
 
 <strong><em>Kushal Arora</em></strong> and A. Rangarajan. “<em>Contrastive Entropy: A new evaluation metric for unnormalized language models.</em>” arXiv:1601.00248, 2016.
 
+S. Grover, <strong><em>Kushal Arora</em></strong>, and S. K. Mitra. <em>"Text extraction from document images using edge information."</em> India Conference (INDICON), 2009 Annual IEEE. IEEE, 2009.
+
+<!-- #### **<span style="text-decoration:underline;">PREPRINTS:</span>** -->
+
+
+
+
+<!-- P. Partharathi, <strong><em>Kushal Arora</em></strong>, P. Budzianowski, J. Cheung, S. Chandar, and J. Pineau “<em>GraphDial: Building an Interpretable Dynamic Graph for Improved Conditional Language Generation</em>”. -->
+
+
 #### <strong><span style="text-decoration:underline;">PROFESSIONAL EXPERIENCE:</span></strong>
 
 <table>
+    <tr>
+        <td style="border-top:0; border-bottom:0; padding: 0px">
+            <p style="margin-bottom: 4px">
+                <strong>Meta AI, FAIR, Remote</strong><br>
+                <strong><em>Research Scientist Intern</em></strong>
+            </p>
+        </td>
+        <td style="border-top:0; border-bottom:0; padding: 0px">
+            <p style="text-align: right; margin-bottom: 4px">
+                <strong>Jan 2022 - July 2022</strong><br><strong>Host: Jason Weston</strong>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"  style="border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px">
+                <p>Proposed and implemented DIRECTOR model for supervised language modeling. The proposed model is competitive to standard language modeling in training and decoding speeds while alleviating issues such as toxicity, contradiction, and repetition, and maintaining generation quality.</p>
+                <p>This work was accepted at AACL 2022 and was a part of BlenderBot3 model from Meta AI.</p>
+        </td>
+    </tr>
+    <tr>
+        <td style="border-top:0; border-bottom:0; padding: 0px">
+            <p style="margin-bottom: 4px">
+                <strong>Microsoft Research, Remote</strong><br>
+                <strong><em>Research Scientist Intern</em></strong>
+            </p>
+        </td>
+        <td style="border-top:0; border-bottom:0; padding: 0px">
+            <p style="text-align: right; margin-bottom: 4px">
+                <strong>Feb 2021 - May 2021</strong><br>
+                <strong>Host: Oriana Riva</strong>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"  style="border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px">
+                <p>I was responsible for designing and implementing a new approach for U.I. representation with a goal of building autonomous natural language based web-agents.</p>
+                <p> This work was accepted at EMNLP (Findings), 2022.</p>
+        </td>
+    </tr>
+    <tr>
+    <tr>
+        <td style="border-top:0; border-bottom:0; padding: 0px">
+            <p style="margin-bottom: 4px">
+                <strong>Borealis AI, Montreal</strong><br>
+                <strong><em>Research Scientist Intern</em></strong>
+            </p>
+        </td>
+        <td style="border-top:0; border-bottom:0; padding: 0px">
+            <p style="text-align: right; margin-bottom: 4px">
+                <strong>Sept 2019 - Feb 2020</strong><br>
+                <strong>Host: Layla El Asri</strong>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"  style="border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px">
+                <p>Proposed a way to quantify the impact of error accumulation due to exposure bias on language generation by posing language generation as an imitation learning problem.</p>
+                <p>This work was accepted in ACL(Findings), 2022,</p>
+        </td>
+    </tr>
     <tr>
         <td style="border-top:0; border-bottom:0; padding: 0px">
             <p style="margin-bottom: 4px">

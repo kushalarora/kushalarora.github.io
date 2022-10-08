@@ -13,7 +13,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Hello!! I am a Ph.D. student at McGill University and Mila. I am  jointly supervised by Prof. [Jackie Cheung](http://cs.mcgill.ca/~jcheung/index.html) and Prof. [Doina Precup](http://www.cs.mcgill.ca/~dprecup/). My Ph.D. research is focused on developing smarter training and inference approaches for robust language generation. 
+Hello!! I am a Ph.D. student at McGill University and Mila. I am  jointly supervised by Prof. [Jackie Cheung](http://cs.mcgill.ca/~jcheung/index.html) and Prof. [Doina Precup](http://www.cs.mcgill.ca/~dprecup/). My Ph.D. research is focused on developing smarter training and inference approaches for robust language generation. During my Ph.D. I have interned at Borealis AI with Layla El-Asri, Microsoft Reserach with Oriana Riva, and Meta AI (FAIR) with Jason Weston. 
 
 **Research Interests**: My research focuses at the intersection of language modeling and imitation learning. I am also interested compositionality and systematicity in language generation and representation.
 
