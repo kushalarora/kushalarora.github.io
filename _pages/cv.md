@@ -12,6 +12,7 @@ Language modeling and generation, sequential decision making, compositionality i
 
 #### **<span style="text-decoration:underline;">EDUCATION:</span>**
 <table>
+    <tr>
        <td style="width: 65%; border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px">
             <p>
                 <strong> PhD, Computer Science</strong><br>
