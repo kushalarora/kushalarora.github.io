@@ -2,7 +2,8 @@
 layout: post
 date: 2022-10-06
 inline: false
-title: New Paper! Lexi: Self-Supervised Learning of the UI Language., accepted at EMNLP (Findings), 2022.
+title: New Paper! Lexi&#58;Self-Supervised Learning of the UI Language, accepted at EMNLP(Findings), 2022
+
 ---
 
 ## Lexi: Self-Supervised Learning of the UI Language 

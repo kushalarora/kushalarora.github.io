@@ -2,7 +2,7 @@
 layout: post
 date: 2022-09-20
 inline: false
-title: New Paper! DIRECTOR paper accepted at AACL.
+title: New Paper! DIRECTOR paper accepted at AACL, 2022.
 ---
 
 ## DIRECTOR: Generator-Classifiers For Supervised Language Modeling 

@@ -2,7 +2,7 @@
 layout: post
 date: 2022-02-26
 inline: false
-title: New paper on exposure bias accepted to ACL (Findings).
+title: New paper! Why Exposure Bias Matters! accepted to ACL (Findings), 2022.
 ---
 
 ## Why Exposure Bias Matters: An Imitation Learning Perspective of Error Accumulation in Language Generation.
