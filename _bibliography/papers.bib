@@ -3,39 +3,122 @@
 
 @string{aps = {American Physical Society,}}
 
-@article{grover2009text,
-  title={Text extraction from document images using edge information},
-  author={Grover, Sachin and Arora, Kushal and Mitra, Suman K},
-  booktitle={2009 Annual IEEE India Conference},
-  year={2009},
-  organization={IEEE}
+@inproceedings{banerjeeLexiSelfSupervisedLearning2022,
+  title      = {Lexi: {Self}-{Supervised} {Learning} of the {UI} {Language}},
+  shorttitle = {Lexi},
+  url        = {https://openreview.net/forum?id=dc1VMHBN6Wn&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3Daclweb.org%2FACL%2FARR%2F2022%2FApril%2FAuthors%23your-submissions)},
+  abstract   = {Humans can learn to operate the user interface (UI) of an application by reading an instruction manual or how-to guide. Along with text, these resources include visual content such as screenshots...},
+  language   = {en},
+  urldate    = {2022-10-11},
+  author     = {Banerjee, Pratyay and Mahajan, Shweti and Arora, Kushal and Baral, Chitta and Oriana Riva},
+  month      = apr,
+  year       = {2022},
+  booktitle = {Findings of the Emperical Methods of Natural Language Processing: EMNLP 2022},
+}
+
+@misc{xuLearningNewSkills2022,
+  title      = {Learning {New} {Skills} after {Deployment}: {Improving} open-domain internet-driven dialogue with human feedback},
+  shorttitle = {Learning {New} {Skills} after {Deployment}},
+  url        = {http://arxiv.org/abs/2208.03270},
+  doi        = {10.48550/arXiv.2208.03270},
+  abstract   = {Frozen models trained to mimic static datasets can never improve their performance. Models that can employ internet-retrieval for up-to-date information and obtain feedback from humans during deployment provide the promise of both adapting to new information, and improving their performance. In this work we study how to improve internet-driven conversational skills in such a learning framework. We collect deployment data, which we make publicly available, of human interactions, and collect various types of human feedback -- including binary quality measurements, free-form text feedback, and fine-grained reasons for failure. We then study various algorithms for improving from such feedback, including standard supervised learning, rejection sampling, model-guiding and reward-based learning, in order to make recommendations on which type of feedback and algorithms work best. We find the recently introduced Director model (Arora et al., '22) shows significant improvements over other existing approaches.},
+  urldate    = {2022-10-10},
+  publisher  = {arXiv},
+  author     = {Xu, Jing and Ung, Megan and Komeili, Mojtaba and Arora, Kushal and Boureau, Y.-Lan and Weston, Jason},
+  month      = aug,
+  year       = {2022},
+  note       = {arXiv:2208.03270 [cs]},
+  keywords   = {Computer Science - Artificial Intelligence, Computer Science - Computation and Language},
+  file       = {arXiv.org Snapshot:/Users/kushal/Zotero/storage/EDPFUSEU/2208.html:text/html;Xu et al_2022_Learning New Skills after Deployment.pdf:/Users/kushal/Zotero/storage/JAJNBRW2/Xu et al_2022_Learning New Skills after Deployment.pdf:application/pdf}
+}
+
+@misc{shusterBlenderBotDeployedConversational2022,
+  title      = {{BlenderBot} 3: a deployed conversational agent that continually learns to responsibly engage},
+  shorttitle = {{BlenderBot} 3},
+  url        = {http://arxiv.org/abs/2208.03188},
+  doi        = {10.48550/arXiv.2208.03188},
+  abstract   = {We present BlenderBot 3, a 175B parameter dialogue model capable of open-domain conversation with access to the internet and a long-term memory, and having been trained on a large number of user defined tasks. We release both the model weights and code, and have also deployed the model on a public web page to interact with organic users. This technical report describes how the model was built (architecture, model and training scheme), and details of its deployment, including safety mechanisms. Human evaluations show its superiority to existing open-domain dialogue agents, including its predecessors (Roller et al., 2021; Komeili et al., 2022). Finally, we detail our plan for continual learning using the data collected from deployment, which will also be publicly released. The goal of this research program is thus to enable the community to study ever-improving responsible agents that learn through interaction.},
+  urldate    = {2022-09-15},
+  publisher  = {arXiv},
+  author     = {Shuster, Kurt and Xu, Jing and Komeili, Mojtaba and Ju, Da and Smith, Eric Michael and Roller, Stephen and Ung, Megan and Chen, Moya and Arora, Kushal and Lane, Joshua and Behrooz, Morteza and Ngan, William and Poff, Spencer and Goyal, Naman and Szlam, Arthur and Boureau, Y.-Lan and Kambadur, Melanie and Weston, Jason},
+  month      = aug,
+  year       = {2022},
+  note       = {arXiv:2208.03188 [cs]},
+  keywords   = {Computer Science - Computation and Language, Computer Science - Artificial Intelligence},
+  file       = {arXiv Fulltext PDF:/Users/kushal/Zotero/storage/HLTBPYFJ/Shuster et al. - 2022 - BlenderBot 3 a deployed conversational agent that.pdf:application/pdf;arXiv.org Snapshot:/Users/kushal/Zotero/storage/K8UXV4TV/2208.html:text/html}
+}
+
+
+@inproceedings{aroraDIRECTORGeneratorClassifiersSupervised2022,
+  title      = {{DIRECTOR}: {Generator}-{Classifiers} {For} {Supervised} {Language} {Modeling}},
+  abstract   = {Current language models achieve low perplexity but their resulting generations still suffer from toxic responses, repetitiveness and contradictions. The standard language modeling setup fails to address these issues. In this paper, we introduce a new architecture, \{{\textbackslash}sc Director\}, that consists of a unified generator-classifier with both a language modeling and a classification head for each output token. Training is conducted jointly using both standard language modeling data, and data labeled with desirable and undesirable sequences. Experiments in several settings show that the model has competitive training and decoding speed compared to standard language models while yielding superior results, alleviating known issues while maintaining generation quality. It also outperforms existing model guiding approaches in terms of both accuracy and efficiency.},
+  author     = {Arora, Kushal and Shuster, Kurt and Sukhbaatar, Sainbayar and Weston, Jason},
+  booktitle = {Asian Association for Computational Linguistics: AACL 2022},
+  month     = sept,
+  year      = {2022},
+  address   = {Tepei, Taiwan},
+  publisher = {Asian Association for Computational Linguistics},
+  file       = {Arora et al_2022_DIRECTOR.pdf:/Users/kushal/Zotero/storage/NH2G2U94/Arora et al_2022_DIRECTOR.pdf:application/pdf;arXiv.org Snapshot:/Users/kushal/Zotero/storage/78PKP3BR/2206.html:text/html}
+}
+@inproceedings{arora-etal-2022-exposure,
+  title     = {Why Exposure Bias Matters: An Imitation Learning Perspective of Error Accumulation in Language Generation},
+  author    = {Arora, Kushal  and
+               El Asri, Layla  and
+               Bahuleyan, Hareesh  and
+               Cheung, Jackie},
+  booktitle = {Findings of the Association for Computational Linguistics: ACL 2022},
+  month     = may,
+  year      = {2022},
+  address   = {Dublin, Ireland},
+  publisher = {Association for Computational Linguistics},
+  url       = {https://aclanthology.org/2022.findings-acl.58},
+  doi       = {10.18653/v1/2022.findings-acl.58},
+  pages     = {700--710},
+  abstract  = {Current language generation models suffer from issues such as repetition, incoherence, and hallucinations. An often-repeated hypothesis for this brittleness of generation models is that it is caused by the training and the generation procedure mismatch, also referred to as exposure bias. In this paper, we verify this hypothesis by analyzing exposure bias from an imitation learning perspective. We show that exposure bias leads to an accumulation of errors during generation, analyze why perplexity fails to capture this accumulation of errors, and empirically show that this accumulation results in poor generation quality.}
+}
+
+@article{aroraLearningLexicalSubspaces2020,
+  title    = {Learning {Lexical} {Subspaces} in a {Distributional} {Vector} {Space}},
+  volume   = {8},
+  url      = {https://aclanthology.org/2020.tacl-1.21},
+  doi      = {10.1162/tacl_a_00316},
+  abstract = {In this paper, we propose LexSub, a novel approach towards unifying lexical and distributional semantics. We inject knowledge about lexical-semantic relations into distributional word embeddings by defining subspaces of the distributional vector space in which a lexical relation should hold. Our framework can handle symmetric attract and repel relations (e.g., synonymy and antonymy, respectively), as well as asymmetric relations (e.g., hypernymy and meronomy). In a suite of intrinsic benchmarks, we show that our model outperforms previous approaches on relatedness tasks and on hypernymy classification and detection, while being competitive on word similarity tasks. It also outperforms previous systems on extrinsic classification tasks that benefit from exploiting lexical relational cues. We perform a series of analyses to understand the behaviors of our model.1Code available at https://github.com/aishikchakraborty/LexSub.},
+  urldate  = {2022-10-11},
+  journal  = {Transactions of the Association for Computational Linguistics},
+  author   = {Arora, Kushal and Chakraborty, Aishik and Cheung, Jackie C. K.},
+  year     = {2020},
+  note     = {Place: Cambridge, MA
+              Publisher: MIT Press},
+  pages    = {311--329},
+  file     = {Arora et al_2020_Learning Lexical Subspaces in a Distributional Vector Space.pdf:/Users/kushal/Zotero/storage/CV3F8BIM/Arora et al_2020_Learning Lexical Subspaces in a Distributional Vector Space.pdf:application/pdf}
+}
+
+
+@article{thakur2018nips_il,
+  title   = {Sample Efficient Learning From Demonstrations on Multiple Tasks using Bayesian Neural Networks.},
+  author  = {Thakur, Sanjay and van-Hoof, Herke and  Gamboa-Higuera, Juan and Arora, Kushal and Precup, Doina and Meger, David},
+  journal = {Imitation Learning and its Challenges in Robotics, NeuRIPS 2018, Montreal, Canada},
+  year    = {2018}
 }
 
 @article{arora2016contrastive,
-  title={Contrastive Entropy: A new evaluation metric for unnormalized language models},
-  author={Arora, Kushal and Rangarajan, Anand},
-  journal={arXiv preprint arXiv:1601.00248},
-  year={2016}
+  title   = {Contrastive Entropy: A new evaluation metric for unnormalized language models},
+  author  = {Arora, Kushal and Rangarajan, Anand},
+  journal = {arXiv preprint arXiv:1601.00248},
+  year    = {2016}
 }
 
 @article{arora2016compositional,
-  title={A compositional approach to language modeling},
-  author={Arora, Kushal and Rangarajan, Anand},
-  journal={arXiv preprint arXiv:1604.00100},
-  year={2016}
+  title   = {A compositional approach to language modeling},
+  author  = {Arora, Kushal and Rangarajan, Anand},
+  journal = {arXiv preprint arXiv:1604.00100},
+  year    = {2016}
 }
 
-@article{thakur2018nips_il,
-    title={Sample Efficient Learning From Demonstrations on Multiple Tasks using Bayesian Neural Networks.},
-    author={Thakur, Sanjay and van-Hoof, Herke and  Gamboa-Higuera, Juan and Arora, Kushal and Precup, Doina and Meger, David},
-    journal={Imitation Learning and its Challenges in Robotics, NeuRIPS 2018, Montreal, Canada},
-    year={2018}
-}
-
-@article{arora2019lexsub,
-    title={Learning Lexical Subspaces in a Distributional Vector Space},
-    author={Arora, Kushal and Chakraborty, Aishik and Cheung, Jackie},
-    journal={Transaction of the ACL (to appear in April and to be presented at ACL.)},
-    url={https://kushalarora.github.io/assets/lexsub.pdf},
-    year={2019}
+@article{grover2009text,
+  title        = {Text extraction from document images using edge information},
+  author       = {Grover, Sachin and Arora, Kushal and Mitra, Suman K},
+  booktitle    = {2009 Annual IEEE India Conference},
+  year         = {2009},
+  organization = {IEEE}
 }
