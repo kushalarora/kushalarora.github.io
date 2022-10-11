@@ -92,16 +92,7 @@ S. Thakur, H. Van Hoof, <strong><em>Kushal Arora</em></strong>, D. Precup, and D
 
 S. Grover, <strong><em>Kushal Arora</em></strong>, and S. K. Mitra. <em>"Text extraction from document images using edge information."</em> India Conference (INDICON), 2009 Annual IEEE. IEEE, 2009.
 
-<!-- #### **<span style="text-decoration:underline;">PREPRINTS:</span>** -->
-
-
-
-
-<!-- P. Partharathi, <strong><em>Kushal Arora</em></strong>, P. Budzianowski, J. Cheung, S. Chandar, and J. Pineau “<em>GraphDial: Building an Interpretable Dynamic Graph for Improved Conditional Language Generation</em>”. -->
-
-
 #### <strong><span style="text-decoration:underline;">PROFESSIONAL EXPERIENCE:</span></strong>
-
 <table>
     <tr>
         <td style="border-top:0; border-bottom:0; padding: 0px">
@@ -143,7 +134,6 @@ S. Grover, <strong><em>Kushal Arora</em></strong>, and S. K. Mitra. <em>"Text ex
         </td>
     </tr>
     <tr>
-    <tr>
         <td style="border-top:0; border-bottom:0; padding: 0px">
             <p style="margin-bottom: 4px">
                 <strong>Borealis AI, Montreal</strong><br>
@@ -175,7 +165,7 @@ S. Grover, <strong><em>Kushal Arora</em></strong>, and S. K. Mitra. <em>"Text ex
                 <strong>Jun 2016 - Aug 2017</strong>
             </p>
         </td>
-    </tr>
+    </tr> 
     <tr>
         <td colspan="2"  style="border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px">
                 <p>I was part of the team that developed the in-house deep learning library used within Alexa.</p>
