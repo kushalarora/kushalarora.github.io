@@ -15,12 +15,12 @@ social: true  # includes social icons at the bottom of the page
 
 Hello!! I am a Ph.D. student at McGill University and Mila. I am  jointly supervised by Prof. [Jackie Cheung](http://cs.mcgill.ca/~jcheung/index.html) and Prof. [Doina Precup](http://www.cs.mcgill.ca/~dprecup/). My Ph.D. research is focused on developing smarter training and inference approaches for robust language generation. 
 
-During my Ph.D. I have interned at Borealis AI with Layla El-Asri, Microsoft Reserach with Oriana Riva, and Meta AI (FAIR) with Jason Weston. 
+During my Ph.D. I have interned at Borealis AI with [Layla El-Asri](https://speakingmachines.com/), Microsoft Reserach with [Oriana Riva](https://www.microsoft.com/en-us/research/people/oriana/), and Meta AI (FAIR) with [Jason Weston](http://www.thespermwhale.com/jaseweston/). 
 
-**Research Interests**: My research focuses at the intersection of language modeling and imitation learning. I am also interested compositionality and systematicity in language generation and representation.
+**Research Interests**: My research focuses at the intersection of language modeling and reinforcement learning with the aim of building language generation models that are do not degenerate, are safe, and are aligned to human preferences and values. 
 
 Before joining McGill University, I was an engineer at Amazon Alexa's Algorithms team. My work there focused on scaling distributed deep learning approaches for speech and language understanding.
 
-Prior to that, I was a master student at University of Florida where I worked with Prof. [Anand Rangarajan](https://www.cise.ufl.edu/~anand/) on Compositional Language Modeling.
+Prior to that, I was a master student at University of Florida where I worked with Prof. [Anand Rangarajan](https://www.cise.ufl.edu/~anand/) on compositional language modeling.
 
 
