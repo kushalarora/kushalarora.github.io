@@ -7,23 +7,23 @@ nav: true
 [Email](mailto:kushal18@gmail.com) • [Website](http://kushalarora.github.io) • [Github](https://github.com/kushalarora)
 
 
-#### <span style="text-decoration:underline;">**Research Interests:**</span>
-Language modeling and generation, sequential decision making, compositionality in neural models for language processing.
+#### <span style="text-decoration:underline; align:justify;">**Research Interests:**</span>
+Natural Language Generation, Reinforcement Learning, Imitation Learning, AI Safety and Alignment, Toxicity and Bias in Language Generation, and Code Generation.
 
 #### **<span style="text-decoration:underline;">EDUCATION:</span>**
-<table>
+<table style="width:100%;">
     <tr>
-       <td style="width: 65%; border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px">
+       <td style="border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px">
             <p>
                 <strong> PhD, Computer Science</strong><br>
                 <em>McGill University, Montreal</em><br>
                 Advisors: Jackie CK Cheung and Doina Precup
             </p>
-            <p>
+            <!-- <p>
                 <strong>Courses Taken</strong>:
                 <em>Natural Language Processing</em>, <em>Reinforcement Learning</em>,
                 <em>Mathematical Foundations of Machine Learning</em>, <em> Structured Prediction and Optimization</em>
-            </p>
+            </p> -->
         </td>
        <td style="border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px; vertical-align: top">
             <p style="text-align: right;">
@@ -33,18 +33,19 @@ Language modeling and generation, sequential decision making, compositionality i
         </td>
     </tr>
     <tr>
-       <td style="width: 65%; border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px; vertical-align: top">
+       <td style="border-top:0; border-bottom:0; padding: 0px; padding-bottom: 4px; vertical-align: top">
             <p>
                 <strong>Master of Science, Computer Engineering</strong><br>
-                <em>University of Florida, Gainesville, FL</em>
+                <em>University of Florida, Gainesville, FL</em><br>
+                <strong>Master's Thesis: </strong>Compositional Language Modeling
             </p>
-            <p>
+            <!-- <p>
                 <strong>Courses Taken</strong>:
                 <em>Maths for Intelligent Systems</em>, <em>Machine Learning</em>, <em>Advanced Machine Learning</em>,
                 <em>Cloud Computing and Storage</em>, <em>Advance Data Structures</em>, <em>Analysis of Algorithms</em>,
                 <em>Computer Architecture</em>, <em>Distributed Operating System.</em>
-            </p>
-            <p><strong>Master's Thesis: </strong>Compositional Language Modeling</p>
+            </p> -->
+            <!-- <p></p> -->
         </td>
         <td style="border-top: 0; border-bottom: 0; padding: 0px; padding-bottom: 4px; vertical-align: top">
             <p style="text-align: right">
@@ -54,13 +55,13 @@ Language modeling and generation, sequential decision making, compositionality i
         </td>
     </tr>
     <tr>
-        <td style="border-top: 0; border-bottom: 0; padding: 0px; padding-bottom: 4px">
+        <td style="border-top: 0; border-bottom: 0; padding: 0px; padding-bottom: 4px; vertical-align: top">
             <p>
                 <strong>B. Tech, Electronics and Communication Engineering</strong><br>
                 <em>Motilal Nehru National Institute of Technology, Allahabad</em>
             </p>
         </td>
-        <td style="border-top: 0; border-bottom: 0; padding: 0px; padding-bottom: 4px">
+        <td style="border-top: 0; border-bottom: 0; padding: 0px; padding-bottom: 4px; vertical-align: top">
             <p style="text-align: right"><strong>
                 July 2006 - May 2010</strong><br>
                 GPA: 7.57/10
@@ -71,26 +72,28 @@ Language modeling and generation, sequential decision making, compositionality i
 
 #### **<span style="text-decoration:underline;">PUBLICATIONS:</span>**
 
-P. Banerjee, S. Mahajan, <strong><em>Kushal Arora</em></strong>, C. Baral, O. Riva, "Lexi: Self-Supervised Learning of the UI Language", Finding of EMNLP, 2022.
+<p style="align:justify;"><strong><em>Kushal Arora</em></strong>, T. J. O'Donnell, D. Precup, J. Weston, J. Cheung, "The Stable Entropy Hypothesis and Entropy-Aware Decoding: An Analysis and Algorithm for Robust Natural Language Generation", Under Submission, ICML 2023.</p>
 
-J. Xu, M. Ung, M. Komeili, <strong><em>Kushal Arora</em></strong>, Y. Boureau, Jason Weston, "Learning New Skills after Deployment: Improving open-domain internet-driven dialogue with human feedback", arXiv:2208.03270. 
+<p style="align:justify;">J. Xu, M. Ung, M. Komeili, <strong><em>Kushal Arora</em></strong>, Y. Boureau, J. Weston, "Learning New Skills after Deployment: Improving open-domain internet-driven dialogue with human feedback", arXiv:2208.03270, Under Submission, ACL 2023.</p>
 
- K. Shuster, J. Xu, M. Komeili, D. Ju, E.M. Smith, S. Roller, M. Ung, M. Chen,<strong><em>Kushal Arora</em></strong>, J. Lane, M. Behrooz, W. Ngan, S. Poff, N. Goyal, A. Szlam, Y. Boureau, M. Kambadur, J. Weston, "BlenderBot 3: a deployed conversational agent that continually learns to responsibly engage.", arXiv:2208.03188.
+<p style="align:justify;">P. Banerjee, S. Mahajan, <strong><em>Kushal Arora</em></strong>, C. Baral, O. Riva, "Lexi: Self-Supervised Learning of the UI Language", Finding of EMNLP, 2022.</p>
 
-<strong><em>Kushal Arora</em></strong>,  K. Shuster, S. Sukhbaatar, J. Weston, "DIRECTOR: Generator-Classifiers For Supervised Language Modeling.", arxiv:2206.07694, 2022. AACL 2022.
 
-<strong><em>Kushal Arora</em></strong>, L. El Asri, H. Bahuleyan, J. Cheung, "Why Exposure Bias Matters: An Imitation Learning Perspective of Error Accumulation in Language Generation
-.", Findings of ACL, 2022
+ <p style="align:justify;">K. Shuster, J. Xu, M. Komeili, D. Ju, E.M. Smith, S. Roller, M. Ung, M. Chen,<strong><em>Kushal Arora</em></strong>, J. Lane, M. Behrooz, W. Ngan, S. Poff, N. Goyal, A. Szlam, Y. Boureau, M. Kambadur, J. Weston, "BlenderBot 3: a deployed conversational agent that continually learns to responsibly engage.", arXiv:2208.03188.</p>
 
-<strong><em>Kushal Arora\*</em></strong>, A. Chakraborty*, and J. Cheung. “<em>Learning Lexical Subspaces in the Distributional Vector Space</em>”, Transactions of the Association for Computational Linguistics (presented at ACL 2020).
+<p style="align:justify;"><strong><em>Kushal Arora</em></strong>,  K. Shuster, S. Sukhbaatar, J. Weston, "DIRECTOR: Generator-Classifiers For Supervised Language Modeling.", arxiv:2206.07694, 2022. AACL 2022.</p>
 
-S. Thakur, H. Van Hoof, <strong><em>Kushal Arora</em></strong>, D. Precup, and D. Meger <em>"Sample Efficient Learning From Demonstrations on Multiple Tasks using Bayesian Neural Networks"</em>, Imitation Learning and its Challenges in Robotics Workshop, NeurIPS 2018.
+<p style="align:justify;"><strong><em>Kushal Arora</em></strong>, L. El Asri, H. Bahuleyan, J. Cheung, "Why Exposure Bias Matters: An Imitation Learning Perspective of Error Accumulation in Language Generation.", Findings of ACL, 2022</p>
 
-<strong><em>Kushal Arora</em></strong> and A. Rangarajan. “<em>A Compositional Approach to Language Modeling.</em>” arXiv:1604.00100, 2016.
+<p style="align:justify;"><strong><em>Kushal Arora\*</em></strong>, A. Chakraborty*, and J. Cheung. “<em>Learning Lexical Subspaces in the Distributional Vector Space</em>”, Transactions of the Association for Computational Linguistics (presented at ACL 2020).</p>
 
-<strong><em>Kushal Arora</em></strong> and A. Rangarajan. “<em>Contrastive Entropy: A new evaluation metric for unnormalized language models.</em>” arXiv:1601.00248, 2016.
+<p style="align:justify;">S. Thakur, H. Van Hoof, <strong><em>Kushal Arora</em></strong>, D. Precup, and D. Meger <em>"Sample Efficient Learning From Demonstrations on Multiple Tasks using Bayesian Neural Networks"</em>, Imitation Learning and its Challenges in Robotics Workshop, NeurIPS 2018.</p>
 
-S. Grover, <strong><em>Kushal Arora</em></strong>, and S. K. Mitra. <em>"Text extraction from document images using edge information."</em> India Conference (INDICON), 2009 Annual IEEE. IEEE, 2009.
+<p style="align:justify;"><strong><em>Kushal Arora</em></strong> and A. Rangarajan. “<em>A Compositional Approach to Language Modeling.</em>” arXiv:1604.00100, 2016.</p>
+
+<p style="align:justify;"><strong><em>Kushal Arora</em></strong> and A. Rangarajan. “<em>Contrastive Entropy: A new evaluation metric for unnormalized language models.</em>” arXiv:1601.00248, 2016.</p>
+
+<p style="align:justify;">S. Grover, <strong><em>Kushal Arora</em></strong>, and S. K. Mitra. <em>"Text extraction from document images using edge information."</em> India Conference (INDICON), 2009 Annual IEEE. IEEE, 2009.</p>
 
 #### <strong><span style="text-decoration:underline;">PROFESSIONAL EXPERIENCE:</span></strong>
 <table>
@@ -257,7 +260,7 @@ S. Grover, <strong><em>Kushal Arora</em></strong>, and S. K. Mitra. <em>"Text ex
     </tr>
 </table>
 
-#### **<span style="text-decoration:underline;">TALKS:</span>**
+<!-- #### **<span style="text-decoration:underline;">TALKS:</span>**
 <ul style="padding-left: 15px">
 <li> <em>“Learning Lexical Subspaces in the Distributional Vector Space”, CompLing, May 2019, Mila.</em></li>
 <li> <em>“Variational Approaches for Text Generation”, CompLing, August 2018, McGill.</em></li>
@@ -269,7 +272,7 @@ S. Grover, <strong><em>Kushal Arora</em></strong>, and S. K. Mitra. <em>"Text ex
 <li> <em>"Neural Network Methods for Knowledge Bases”, Data Science Tea, June, 2015, UF.</em></li>
 <li> <em>"Introduction to Deep Learning and Theano”, Data Science Tea, Jan, 2015, UF.</em></li>
 <li> <em>"PIDGIN: Ontology Alignment using Web as Interlingua”, Data Science Tea, Apr 2014, UF.</em></li>
-</ul>
+</ul> -->
 
 #### **<span style="text-decoration:underline;">TECHNICAL SKILLS:</span>**
 <p style="margin-bottom: 4px"><strong>Languages</strong>: C, C++, Java, Python, Javascript, MySql.</p>
