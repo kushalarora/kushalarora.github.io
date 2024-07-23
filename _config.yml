@@ -119,7 +119,7 @@ collections:
     output: true
     premalink: /summaries/:path/
 
-news_limit: 5
+news_limit: 2
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
